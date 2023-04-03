@@ -44,8 +44,10 @@ const FilledButton = styled(BaseButton)`
 export default function Button(props) {
 	const { theme, text } = props;
 	if (theme === 'filled') {
-		return <FilledButton>{text}</FilledButton>;
-    } else {
+		return (
+			<FilledButton>{text}</FilledButton>
+		);
+	} else {
 		return <OutlinedButton>{text}</OutlinedButton>;
 	}
 }

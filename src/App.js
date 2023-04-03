@@ -1,7 +1,7 @@
 import React from 'react';
-import { HomePage } from './components/Homepage';
 import styled from 'styled-components';
 import tw from 'twin.macro';
+import { HomePage } from './containers/Homepage';
 const AppContainer = styled.div`
 	${tw`
         w-full
@@ -11,7 +11,11 @@ const AppContainer = styled.div`
         `}
 `;
 function App() {
-	return <AppContainer><HomePage/></AppContainer>;
+	return (
+		<AppContainer>
+			<HomePage />
+		</AppContainer>
+	);
 }
 
 export default App;

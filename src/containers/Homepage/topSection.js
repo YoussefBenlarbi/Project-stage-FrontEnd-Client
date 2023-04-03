@@ -1,10 +1,10 @@
 import React from 'react';
 import styled from 'styled-components';
 import tw from 'twin.macro';
-import McLaren from '../../assets/images/mclaren-orange-big.png';
 import blobImg from '../../assets/images/blob.svg';
-import { SCREENS } from '../responsive';
-import Button from '../button';
+import McLaren from '../../assets/images/mclaren-orange-big.png';
+import Button from '../../components/button';
+import { SCREENS } from '../../components/responsive';
 
 const TopSectionContainer = styled.div`
 	min-height: 350px;
@@ -76,6 +76,7 @@ const BlobContainer = styled.div`
 	top: -9em;
 	z-index: -1;
 	transform: rotate(-30deg);
+	user-select: none;
 
 	img {
 		width: 100%;
@@ -114,7 +115,7 @@ const StandaloneCar = styled.div`
 	right: -6em;
 	top: -5em;
 	position: absolute;
-
+	user-select: none;
 	img {
 		width: auto;
 		height: 100%;
@@ -165,10 +166,10 @@ export function TopSection() {
 			</LeftContainer>
 			<RightContainer>
 				<BlobContainer>
-					<img src={blobImg} />
+					<img src={blobImg} alt="" />
 				</BlobContainer>
 				<StandaloneCar>
-					<img src={McLaren} />
+					<img src={McLaren} alt="" />
 				</StandaloneCar>
 			</RightContainer>
 		</TopSectionContainer>
