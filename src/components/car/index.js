@@ -18,9 +18,9 @@ import {
 // gas: string;
 
 const CarContainer = styled.div`
-	width: 14.5em;
-	min-height: 22em;
-	max-height: 22em;
+	width: 16.5em;
+	min-height: 24em;
+	max-height: 24em;
 	box-shadow: 0 1.3px 17px -2px rgba(0, 0, 0, 0.4);
 	${tw`
     flex
@@ -207,7 +207,7 @@ export function Car(props) {
 					<CarInfo>{gas}</CarInfo>
 				</CarDetail>
 			</CarDetailsContainer>
-			<RentButton>Rent Now</RentButton>
+			<RentButton onClick={()=>alert("OK")}>Rent Now</RentButton>
 		</CarContainer>
 	);
 }
