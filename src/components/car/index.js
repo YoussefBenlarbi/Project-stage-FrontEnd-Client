@@ -207,7 +207,7 @@ export function Car(props) {
 					<CarInfo>{gas}</CarInfo>
 				</CarDetail>
 			</CarDetailsContainer>
-			<RentButton onClick={()=>alert("OK")}>Rent Now</RentButton>
+			<RentButton>Rent Now</RentButton>
 		</CarContainer>
 	);
 }

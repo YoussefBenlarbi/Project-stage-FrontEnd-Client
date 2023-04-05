@@ -18,13 +18,24 @@ const NavItem = styled.li`
         md:text-base
         text-black
         font-medium
+		relative
         mr-1
         sm:m-5
         cursor-pointer
         transition
         duration-300
         ease-in-out
-        hover:text-gray-700
+        hover:text-gray-500
+		after:bg-gray-500
+		after:content-['']
+		after:h-[3px]
+		after:w-[0]
+		after:left-0
+		after:bottom-[-1px]
+		after:absolute 
+		after:rounded-xl
+		after:duration-300 
+		
     `};
 	${({ menu }) =>
 		menu &&
@@ -47,7 +58,7 @@ export function NavItems() {
 		return (
 			<Menu right styles={menuStyle}>
 				<ListContainer>
-					<NavItem menu>
+					<NavItem menu >
 						<a href="#">Home</a>
 					</NavItem>
 					<NavItem menu>
@@ -65,16 +76,16 @@ export function NavItems() {
 	}
 	return (
 		<ListContainer>
-			<NavItem>
+			<NavItem className='nav'>
 				<a href="#">Home</a>
-			</NavItem>
-			<NavItem>
+			</NavItem >
+			<NavItem className='nav'>
 				<a href="#">Cars</a>
 			</NavItem>
-			<NavItem>
+			<NavItem className='nav'>
 				<a href="#">Services</a>
 			</NavItem>
-			<NavItem>
+			<NavItem className='nav'>
 				<a href="#">Contact-us</a>
 			</NavItem>
 		</ListContainer>

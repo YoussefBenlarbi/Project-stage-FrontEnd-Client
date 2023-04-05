@@ -1,7 +1,10 @@
 import React from 'react';
 import CarLogoImg from '../../assets/images/car-logo.png';
+import CarLogoImgDark from '../../assets/images/car-logo-dark.png';
 import styled from 'styled-components';
 import tw from 'twin.macro';
+import PropTypes from 'prop-types';
+
 const LogoContainer = styled.div`
 	${tw`
         flex 
@@ -16,8 +19,12 @@ const LogoText = styled.div`
         font-bold
         text-black
         m-1
-    `}
+		`}
+	${({ color }) => (color === 'white' ? tw`text-white` : tw`text-black`)}
 `;
+LogoText.propTypes = {
+	color: PropTypes.any,
+};
 const Image = styled.div`
 	width: auto;
 	${tw`
@@ -30,13 +37,14 @@ const Image = styled.div`
 	}
 `;
 
-export function Logo() {
+export function Logo(props) {
+	const { color } = props;
 	return (
 		<LogoContainer>
 			<Image>
-				<img src={CarLogoImg} alt="" />
+				<img src={color === 'white' ? CarLogoImgDark: CarLogoImg } alt="" />
 			</Image>
-			<LogoText>Car Agency</LogoText>
+			<LogoText color={color || 'dark'}>Car Agency</LogoText>
 		</LogoContainer>
 	);
 }

@@ -7,6 +7,7 @@ import { BookingSteps } from './bookingSteps';
 import { TopSection } from './topSection';
 import { AboutUs } from './aboutus';
 import { TopCars } from './topCars';
+import { Footer } from '../../components/footer';
 const PageContainer = styled.div`
 	${tw`
         flex
@@ -30,6 +31,7 @@ export function HomePage() {
 			<AboutUs />
 			<Marginer direction="vertical" margin="2em" />
 			<TopCars/>
+			<Footer/>
 		</PageContainer>
 	);
 }

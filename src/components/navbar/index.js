@@ -12,6 +12,7 @@ const NavbarContainer = styled.div`
         flex
         flex-row
         items-center
+        pl-3
         lg:pl-12
         lg:pr-12
         justify-between
@@ -21,7 +22,7 @@ const LogoContainer = styled.div``;
 export function Navbar() {
 	return <NavbarContainer>
         <LogoContainer>
-            <Logo/>
+            <Logo color="dark"/>
         </LogoContainer>
         <NavItems/>
     </NavbarContainer>;
