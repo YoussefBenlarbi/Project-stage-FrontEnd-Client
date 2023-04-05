@@ -22,6 +22,7 @@ const CarContainer = styled.div`
 	min-height: 24em;
 	max-height: 24em;
 	box-shadow: 0 1.3px 17px -2px rgba(0, 0, 0, 0.4);
+  
 	${tw`
     flex
     flex-col

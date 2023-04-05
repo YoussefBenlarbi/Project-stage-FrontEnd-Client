@@ -2,33 +2,13 @@ import React from 'react';
 import styled from 'styled-components';
 import tw from 'twin.macro';
 import { Car } from '../../components/car';
-import 'react-responsive-carousel/lib/styles/carousel.min.css'; // requires a loader
-import { Carousel } from 'react-responsive-carousel';
+import Carousel, { Dots, slidesToShowPlugin } from '@brainhubeu/react-carousel';
+import '@brainhubeu/react-carousel/lib/style.css';
 // import { Carousel } from 'react-responsive-carousel';
 // import 'react-responsive-carousel/lib/styles/carousel.min.css'; // requires a loader
 import { useState } from 'react';
 import { useMediaQuery } from 'react-responsive';
 import { SCREENS } from '../../components/responsive';
-const getConfigurableProps = () => ({
-	showArrows: true,
-	showStatus: true,
-	showIndicators: true,
-	infiniteLoop: true,
-	showThumbs: true,
-	useKeyboardArrows: true,
-	autoPlay: true,
-	stopOnHover: true,
-	swipeable: true,
-	dynamicHeight: true,
-	emulateTouch: true,
-	autoFocus: false,
-	thumbWidth: 100,
-	selectedItem: 0,
-	interval: 2000,
-	transitionTime: 500,
-	swipeScrollTolerance: 5,
-	ariaLabel: '',
-});
 const TopCarsContainer = styled.div`
 	${tw`
         max-w-screen-lg
@@ -55,14 +35,12 @@ const Title = styled.h2`
 `;
 const CarsContainer = styled.div`
 	${tw`
-    w-full
-    flex
-    flex-wrap
-    items-center
-    justify-center
-    items-center
-    mt-7
-    md:mt-10
+        w-full
+        flex
+        flex-wrap
+        justify-center
+        mt-7
+        md:mt-10
     `};
 `;
 export function TopCars() {
@@ -90,33 +68,56 @@ export function TopCars() {
 		gearType: 'Auto',
 		gas: 'Petrol',
 	};
-	// const cars = [
-	// 	<Car {...testCar} />,
-	// 	<Car {...testCar2} />,
-	// 	<Car {...testCar} />,
-	// 	<Car {...testCar2} />,
-	// 	<Car {...testCar} />,
-	// 	<Car {...testCar} />,
-	// ];
-	// const NumberOfDots = isMobile ? cars.length : parseInt(cars.length / 2 + 1);
+	const cars = [
+		<Car {...testCar} />,
+		<Car {...testCar2} />,
+		<Car {...testCar} />,
+		<Car {...testCar2} />,
+		<Car {...testCar} />,
+		<Car {...testCar} />,
+	];
+	const NumberOfDots = isMobile ? cars.length : parseInt((cars.length / 2)+1);
 	return (
 		<TopCarsContainer>
 			<Title>Explore our Top Deals</Title>
 			<CarsContainer>
 				<Carousel
-					width={990}
-					centerMode
-					centerSlidePercentage={35}
-					useKeyboardArrows={true}
-				>
-					<Car {...testCar} />
-					<Car {...testCar2} />
-					<Car {...testCar} />
-					<Car {...testCar2} />
-					<Car {...testCar} />
-					<Car {...testCar} />
-					
-				</Carousel>
+					value={current}
+					onChange={setCurrent}
+					slides={cars}
+					plugins={[
+						'clicktoChange',
+						{
+							resolve: slidesToShowPlugin,
+							options: {
+								numberOfSlides: 3,
+							},
+						},
+					]}
+					breakpoints={{
+						640: {
+							plugins: [
+								{
+									resolve: slidesToShowPlugin,
+									options: {
+										numberOfSlides: 1,
+									},
+								},
+							],
+						},
+						900: {
+							plugins: [
+								{
+									resolve: slidesToShowPlugin,
+									options: {
+										numberOfSlides: 2,
+									},
+								},
+							],
+						},
+					}}
+				/>
+				<Dots value={current} onChange={setCurrent} number={NumberOfDots} />
 			</CarsContainer>
 		</TopCarsContainer>
 	);

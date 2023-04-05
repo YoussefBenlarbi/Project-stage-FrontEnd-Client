@@ -2,7 +2,13 @@
 module.exports = {
 	content: ['./src/**/*.{js,jsx,ts,tsx}'],
 	theme: {
-		extend: {},
+		extend: {
+			backgroundImage: {
+				// 'login-pic': "url('./src/assets/wallpaper.png')",
+				'login-pic': "url('./assets/wallpaper2.png')",
+				'login-redPic': "url('./assets/red-pic.png')",
+			},
+		},
 		screens: {
 			sm: '640px',
 			// => @media (min-width :640px){...}

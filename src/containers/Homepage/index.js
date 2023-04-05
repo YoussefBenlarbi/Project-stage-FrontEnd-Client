@@ -20,8 +20,9 @@ const PageContainer = styled.div`
 `;
 export function HomePage() {
 	return (
-		<PageContainer>
-			<Navbar />
+		// <PageContainer>
+		// 	<Navbar />
+		<>
 			<TopSection />
 			<Marginer direction="vertical" margin="2em" />
 			<BookCard />
@@ -30,8 +31,9 @@ export function HomePage() {
 			<Marginer direction="vertical" margin="2em" />
 			<AboutUs />
 			<Marginer direction="vertical" margin="2em" />
-			<TopCars/>
-			<Footer/>
-		</PageContainer>
+			<TopCars />
+		</>
+		// 	<Footer/>
+		// </PageContainer>
 	);
 }

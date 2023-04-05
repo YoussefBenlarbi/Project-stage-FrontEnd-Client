@@ -6,6 +6,7 @@ import { useMediaQuery } from 'react-responsive';
 import { SCREENS } from '../responsive';
 import menuStyle from './menuStyle';
 import PropTypes from 'prop-types';
+import { Link } from 'react-router-dom';
 const ListContainer = styled.div`
 	${tw`
     flex
@@ -77,16 +78,16 @@ export function NavItems() {
 	return (
 		<ListContainer>
 			<NavItem className='nav'>
-				<a href="#">Home</a>
+				<Link to='/'>Home</Link>
 			</NavItem >
 			<NavItem className='nav'>
-				<a href="#">Cars</a>
+				<Link to="cars">Cars</Link>
 			</NavItem>
 			<NavItem className='nav'>
-				<a href="#">Services</a>
+				<Link to="contacts">Contact-us</Link>
 			</NavItem>
 			<NavItem className='nav'>
-				<a href="#">Contact-us</a>
+				<Link to="register">Sign Up</Link>
 			</NavItem>
 		</ListContainer>
 	);
