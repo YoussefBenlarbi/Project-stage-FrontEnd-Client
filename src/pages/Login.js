@@ -1,19 +1,45 @@
 import React, { useState } from 'react';
+import { Link, useLocation } from 'react-router-dom';
+import AuthUser from '../PrivateRoute/AuthUser';
+import { AlertError } from '../components/AlertError';
 // import styled from 'styled-components';
 
 function Login() {
 	const [loading, setLoading] = useState(false);
-
-	const handleLogin = (e) => {
+	const { http, setToken } = AuthUser();
+	const [email, setEmail] = useState('');
+	const [password, setPassword] = useState('');
+	const [message, setMessage] = useState('');
+	const [user, setUser] = useState();
+	const [error, setError] = useState();
+	const location = useLocation();
+	const { feedback } = location.state || {};
+	// console.log(feedback);
+	const handleLogin = async (e) => {
 		e.preventDefault();
-		setLoading(!loading);
-		alert('Button Clicked');
+		setLoading(true);
+		setError(null);
+		try {
+			const response = await http.post('/login', { email, password });
+			// do something with response data
+			setToken(response.data.user, response.data.authorization.token);
+			console.log(response.data);
+			setLoading(false);
+			setUser(response.data.user);
+			setMessage('succes');
+		} catch (err) {
+			// handle error
+			setError(err.message || 'Something went wrong');
+			setLoading(false);
+		}
 	};
+
 	return (
 		<div className="w-full h-screen flex justify-center items-center">
 			{' '}
-			<div className="h-full w-1/2 bg-login-redPic bg-cover bg-no-repeat grayscale-[50%]"></div>
-			<div className="w-1/2 flex justify-center items-center  bg-gray-100 h-full">
+			<div className="hidden md:block h-full md:w-1/2 bg-login-redPic bg-cover bg-no-repeat grayscale-[50%]"></div>
+			<div className="w-full md:w-1/2 flex justify-center items-center bg-gray-100 h-full">
+				{' '}
 				<form className="bg-white w-3/4 shadow-md rounded px-8 pt-6 pb-8  ">
 					<div className="mb-4">
 						<h1 className="text-center text-red-400 tracking-widest text-3xl font-bold">
@@ -30,7 +56,7 @@ function Login() {
 							id="email"
 							type="text"
 							placeholder="email"
-							// onChange={(e) => setEmail(e.target.value)}
+							onChange={(e) => setEmail(e.target.value)}
 						/>
 					</div>
 					<div className="mb-6">
@@ -45,7 +71,7 @@ function Login() {
 							id="password"
 							type="password"
 							placeholder="*********************"
-							// onChange={(e) => setPassword(e.target.value)}
+							onChange={(e) => setPassword(e.target.value)}
 						/>
 						{/* <p className="text-red-500 text-xs italic">Please choose a password.</p> */}
 					</div>
@@ -58,25 +84,26 @@ function Login() {
 						>
 							{loading ? 'Loading...' : 'Sign in '}
 						</button>
-						<a
+						<Link
 							className="inline-block align-baseline font-bold text-sm text-red-500 hover:text-red-800"
-							href="#"
+							to="/"
 						>
-							Forgot Password?
-						</a>
+							Go Back
+						</Link>
 					</div>
 					<p className="text-center mt-5 text-gray-500 text-xs">
 						&copy;2020 Acme Corp. All rights reserved.
 					</p>
-					{/* <span>
-                        {message && <p className="text-red-600">{message}</p>}
-                        {user && (
-                            <p className="font-mono">
-                                Hello Mr <span className="font-bold">{user.name}</span>
-                            </p>
-                        )}
-                        {error && <p className="error">{error}</p>}
-                    </span> */}
+					<span>
+						{message && <p className="text-red-600">{message}</p>}
+						{user && (
+							<p className="font-mono">
+								Hello Mr <span className="font-bold">{user.name}</span>
+							</p>
+						)}
+						{error && <p className="error">{error}</p>}
+						{feedback && <AlertError feedback={feedback} />}
+					</span>
 				</form>
 			</div>
 		</div>

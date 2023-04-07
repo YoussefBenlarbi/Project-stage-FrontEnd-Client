@@ -9,6 +9,7 @@ import 'react-calendar/dist/Calendar.css';
 import Calendar from 'react-calendar';
 import { faCaretDown, faCaretUp } from '@fortawesome/free-solid-svg-icons';
 import { SCREENS } from '../responsive';
+import { Link } from 'react-router-dom';
 const CardContainer = styled.div`
 	min-height: 4.3em;
 	box-shadow: 0 1.3px 12px -3px rgba(0, 0, 0, 0.4);
@@ -76,16 +77,16 @@ const LineSeperator = styled.span`
 const DateCalendar = styled(Calendar)`
 	position: absolute;
 	max-width: none;
-    user-select:none;
+	user-select: none;
 	top: 3.5em;
 	left: -1.5em;
 
-    @media(min-width:${SCREENS.md}){
-        top:3.5em;
-        left:-2em;
-    }
+	@media (min-width: ${SCREENS.md}) {
+		top: 3.5em;
+		left: -2em;
+	}
 `;
-export  function BookCard() {
+export function BookCard() {
 	const [startDate, setStartDate] = useState(new Date());
 	const [isStartCalendarOpen, setStartCalendarOpen] = useState(false);
 	const [returnDate, setReturnDate] = useState(new Date());
@@ -134,7 +135,12 @@ export  function BookCard() {
 				)}
 			</ItemContainer>
 			<Marginer direction="horizontal" margin="2em" />
-			<Button text="Book Your Ride" />
+			<Link
+				to="book-car"
+				state={{ startDate: startDate, returnDate: returnDate }}
+			>
+				<Button text="Book Your Ride" />
+			</Link>
 		</CardContainer>
 	);
 }

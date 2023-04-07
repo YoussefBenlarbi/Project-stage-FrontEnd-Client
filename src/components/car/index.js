@@ -22,7 +22,7 @@ const CarContainer = styled.div`
 	min-height: 24em;
 	max-height: 24em;
 	box-shadow: 0 1.3px 17px -2px rgba(0, 0, 0, 0.4);
-  
+
 	${tw`
     flex
     flex-col
@@ -136,7 +136,7 @@ const Seperator = styled.div`
 const RentButton = styled.button`
 	${tw`
     min-w-full
-    mt-5
+    mt-7
     pl-5
     pr-5
     pt-3
@@ -163,18 +163,18 @@ const RentButton = styled.button`
 export function Car(props) {
 	const {
 		name,
-		thumbnailSrc,
+		thumbnailUrl,
 		dailyPrice,
 		monthlyPrice,
 		mileage,
 		gearType,
-		gas,
+		gasType,
 	} = props;
 
 	return (
 		<CarContainer>
 			<CarThumbnail>
-				<img src={thumbnailSrc} />
+				<img src={thumbnailUrl} />
 			</CarThumbnail>
 			<CarName>{name}</CarName>
 			<PricesContainer>
@@ -205,7 +205,7 @@ export function Car(props) {
 					<SmallIcon>
 						<FontAwesomeIcon icon={faFillDrip} />
 					</SmallIcon>
-					<CarInfo>{gas}</CarInfo>
+					<CarInfo>{gasType}</CarInfo>
 				</CarDetail>
 			</CarDetailsContainer>
 			<RentButton>Rent Now</RentButton>

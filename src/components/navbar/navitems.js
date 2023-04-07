@@ -60,16 +60,16 @@ export function NavItems() {
 			<Menu right styles={menuStyle}>
 				<ListContainer>
 					<NavItem menu >
-						<a href="#">Home</a>
+					<Link to='/'>Home</Link>
 					</NavItem>
 					<NavItem menu>
-						<a href="#">Cars</a>
+					<Link to="cars">Cars</Link>
 					</NavItem>
 					<NavItem menu>
-						<a href="#">Services</a>
+					<Link to="contacts">Contact-us</Link>
 					</NavItem>
 					<NavItem menu>
-						<a href="#">Contact-us</a>
+					<Link to="register">Sign Up</Link>
 					</NavItem>
 				</ListContainer>
 			</Menu>

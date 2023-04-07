@@ -13,8 +13,8 @@ function Register() {
 	return (
 		<div className="w-full h-screen flex ">
 			{' '}
-			<div className="h-full  w-1/2  bg-login-redPic bg-cover bg-no-repeat grayscale-[50%]"></div>
-			<div className="flex w-1/2  justify-center items-center bg-gray-100   ">
+			<div className="hidden md:block h-full md:w-1/2 bg-login-redPic bg-cover bg-no-repeat grayscale-[50%]"></div>
+			<div className="w-full md:w-1/2 flex justify-center items-center bg-gray-100 h-full">				
 				<form
 					onSubmit={submitForm}
 					className="px-10 w-[70%]  py-4 mt-6 overflow-hidden blur-none bg-white drop-shadow-xl sm:rounded-lg"

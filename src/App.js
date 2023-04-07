@@ -8,6 +8,8 @@ import Register from './pages/Register';
 import Layout from './components/shared/Layout';
 import ConatctUs from './pages/ConatctUs';
 import Cars from './pages/Cars';
+import BookCar from './pages/BookCar';
+import { PrivateRoute } from './PrivateRoute';
 const AppContainer = styled.div`
 	${tw`
         w-full
@@ -25,13 +27,15 @@ export default function App() {
 					</Route> */}
 					<Route path="/" element={<Layout />}>
 						<Route index element={<HomePage />} />
-						<Route path="cars" element={<Cars/>}></Route>
-						<Route path="contacts" element={<ConatctUs/>}></Route>
+						<Route path="cars" element={<Cars />}></Route>
+						<Route path="contacts" element={<ConatctUs />}></Route>
+						<Route path="book-car" element={<PrivateRoute />}>
+							<Route index element={<BookCar />}></Route>
+						</Route>
 					</Route>
 					<Route>
 						<Route path="login" element={<Login />}></Route>
 						<Route path="register" element={<Register />}></Route>
-						
 					</Route>
 				</Routes>
 			</Router>
