@@ -5,6 +5,7 @@ import blobImg from '../../assets/images/blob.svg';
 import McLaren from '../../assets/images/mclaren-orange-big.png';
 import Button from '../../components/button';
 import { SCREENS } from '../../components/responsive';
+import { Link } from 'react-router-dom';
 
 const TopSectionContainer = styled.div`
 	min-height: 350px;
@@ -160,8 +161,10 @@ export function TopSection() {
 					you like
 				</Description>
 				<ButtonsContainer>
-					<Button text="Book Your Ride" />
-					<Button theme="filled" text="Sell Your Car" />
+					<Link to="book-car">
+						<Button  text="Book Your Ride" />
+					</Link>
+					{/* <Button theme="filled" text="Sell Your Car" /> */}
 				</ButtonsContainer>
 			</LeftContainer>
 			<RightContainer>
