@@ -29,8 +29,8 @@ export default function App() {
 						<Route index element={<HomePage />} />
 						<Route path="cars" element={<Cars />}></Route>
 						<Route path="contacts" element={<ConatctUs />}></Route>
-						<Route path="book-car" element={<PrivateRoute />}>
-							<Route index element={<BookCar />}></Route>
+						<Route  element={<PrivateRoute />}>
+							<Route path="book-car" element={<BookCar />}></Route>
 						</Route>
 					</Route>
 					<Route>

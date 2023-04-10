@@ -4,7 +4,7 @@ import styled from 'styled-components';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faExclamationTriangle } from '@fortawesome/free-solid-svg-icons';
 const AlertContainer = styled.div`
-	${tw` text-red-600 text-lg mb-3 mt-3
+	${tw` text-lg mb-3 mt-3
         inline-flex w-full items-center
         rounded-lg bg-red-100 px-3 py-5
         text-red-700 justify-center
