@@ -1,20 +1,43 @@
 import React, { useState } from 'react';
 import { useNavigate, Link } from 'react-router-dom';
+import AuthUser from '../PrivateRoute/AuthUser';
+import { toast } from 'react-toastify';
 
 function Register() {
+	const { http, setToken } = AuthUser();
+	const navigate = useNavigate();
 	const [name, setName] = useState();
 	const [email, setEmail] = useState();
 	const [password, setPassword] = useState();
 	const [confirmPassword, setConfirmPassword] = useState();
-	function submitForm(e) {
+	const submitForm = (e) => {
 		e.preventDefault();
-		alert('Button Clicked');
-	}
+		//  api call
+		if (password != confirmPassword) {
+			toast.error('passwords are not identical', {
+				position: 'top-center',
+				autoClose: 1000,
+				hideProgressBar: false,
+				closeOnClick: true,
+				pauseOnHover: false,
+				draggable: true,
+				progress: undefined,
+				theme: 'light',
+			});
+		} else {
+			http
+				.post('/register', { name: name, email: email, password: password })
+				.then((res) => {
+					console.log(res);
+					navigate('/login');
+				});
+		}
+	};
 	return (
 		<div className="w-full h-screen flex ">
 			{' '}
 			<div className="hidden md:block h-full md:w-1/2 bg-login-redPic bg-cover bg-no-repeat grayscale-[50%]"></div>
-			<div className="w-full md:w-1/2 flex justify-center items-center bg-gray-100 h-full">				
+			<div className="w-full md:w-1/2 flex justify-center items-center bg-gray-100 h-full">
 				<form
 					onSubmit={submitForm}
 					className="px-10 w-[70%]  py-4 mt-6 overflow-hidden blur-none bg-white drop-shadow-xl sm:rounded-lg"
