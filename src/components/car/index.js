@@ -8,6 +8,7 @@ import {
 	faFillDrip,
 	faTachometerAlt,
 } from '@fortawesome/free-solid-svg-icons';
+import { Link } from 'react-router-dom';
 
 // thumbnailSrc: string;
 // name: string;
@@ -162,6 +163,7 @@ const RentButton = styled.button`
 `;
 export function Car(props) {
 	const {
+		id,
 		name,
 		thumbnailUrl,
 		dailyPrice,
@@ -208,7 +210,9 @@ export function Car(props) {
 					<CarInfo>{gasType}</CarInfo>
 				</CarDetail>
 			</CarDetailsContainer>
-			<RentButton>Rent Now</RentButton>
+			<Link to={'/book-car'} state={{ id: id }}>
+				<RentButton>Rent Now</RentButton>
+			</Link>
 		</CarContainer>
 	);
 }

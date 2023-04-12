@@ -10,6 +10,8 @@ import ConatctUs from './pages/ConatctUs';
 import Cars from './pages/Cars';
 import BookCar from './pages/BookCar';
 import { PrivateRoute } from './PrivateRoute';
+import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 const AppContainer = styled.div`
 	${tw`
         w-full
@@ -21,6 +23,7 @@ const AppContainer = styled.div`
 export default function App() {
 	return (
 		<AppContainer>
+					<ToastContainer />
 			<Router>
 				<Routes>
 					{/* <Route path="/" element={<HomePage />}>

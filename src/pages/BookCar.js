@@ -4,6 +4,7 @@ import tw from 'twin.macro';
 import { useEffect, useState } from 'react';
 import { formatDate } from '../components/utils/dateFormateur';
 import AuthUser from '../PrivateRoute/AuthUser';
+import { toast } from 'react-toastify';
 const BookCarContainer = styled.div`
 	${tw`
 		w-full   bg-gray-100 flex  flex-col p-2 sm:justify-center sm:items-center 
@@ -56,15 +57,16 @@ const Select = styled.select`
 
 function BookCar() {
 	const { http, user } = AuthUser();
-	const navigate =useNavigate();
+	const navigate = useNavigate();
 	const location = useLocation();
-	const { startDate, returnDate } = location.state || {};
+	const { startDate, returnDate, id } = location.state || {};
+	console.log(id);
 	const [cars, setCars] = useState();
 	const initialState = {
-		date_start: formatDate(startDate) || '',
-		date_end: formatDate(returnDate) || '',
+		date_start: startDate ? formatDate(startDate) : '',
+		date_end: returnDate ? formatDate(returnDate) : '',
 		note: '',
-		car_id: 'rien',
+		car_id: id || 'rien',
 	};
 	const getCars = async () => {
 		const apiCars = await http.get('/carsInfo');
@@ -91,6 +93,11 @@ function BookCar() {
 		}
 	}
 	async function handleSubmit() {
+		if (!date_start || !date_end || !note || car_id === 'rien') {
+			alert('Tous les champs obligatoires ');
+			console.log(state);
+			return;
+		}
 		let todayDate = new Date();
 		const reservation = {
 			...state,
@@ -99,7 +106,18 @@ function BookCar() {
 		};
 		console.log(reservation);
 		await http.post('/reservations', reservation);
-		alert('reservation bien enregistrer');
+		// alert('reservation bien enregistrer');
+		toast.success('Reservation bien enregistrer', {
+			position: 'top-center',
+			autoClose: 500,
+			hideProgressBar: false,
+			closeOnClick: true,
+			pauseOnHover: false,
+			draggable: true,
+			progress: undefined,
+			theme: 'light',
+		});
+		navigate('/');
 	}
 	return (
 		<BookCarContainer>
@@ -144,7 +162,8 @@ function BookCar() {
 						id="car_id"
 						value={car_id}
 						onChange={handleChange}
-						defaultChecked={'rien'}
+
+						// defaultValue={id || 'rien'}
 					>
 						<option value="rien" disabled={true}>
 							Choisir la voiture

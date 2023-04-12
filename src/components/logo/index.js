@@ -4,6 +4,7 @@ import CarLogoImgDark from '../../assets/images/car-logo-dark.png';
 import styled from 'styled-components';
 import tw from 'twin.macro';
 import PropTypes from 'prop-types';
+import { Link } from 'react-router-dom';
 
 const LogoContainer = styled.div`
 	${tw`
@@ -44,7 +45,7 @@ export function Logo(props) {
 			<Image>
 				<img src={color === 'white' ? CarLogoImgDark: CarLogoImg } alt="" />
 			</Image>
-			<LogoText color={color || 'dark'}>Car Agency</LogoText>
+			<Link to={'/'} ><LogoText color={color || 'dark'}>Car Agency</LogoText></Link>
 		</LogoContainer>
 	);
 }

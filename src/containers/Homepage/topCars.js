@@ -72,6 +72,7 @@ export function TopCars() {
 					{cars.map((car) => (
 						<Car
 							key={car.id}
+							id={car.id}
 							name={car.name}
 							mileage={car.mileage}
 							thumbnailUrl={car.thumbnailUrl}
