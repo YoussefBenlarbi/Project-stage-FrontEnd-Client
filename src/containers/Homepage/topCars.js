@@ -49,11 +49,11 @@ const CarsContainer = styled.div`
 export function TopCars() {
 	const [cars, setCars] = useState([]);
 	const { http } = AuthUser();
+	const getCars = async () => {
+		const apiCars = await http.get('/carsInfo');
+		setCars(apiCars.data);
+	};
 	useEffect(() => {
-		const getCars = async () => {
-			const apiCars = await http.get('/carsInfo');
-			setCars(apiCars.data);
-		};
 		getCars();
 	}, []);
 	console.log(cars);
