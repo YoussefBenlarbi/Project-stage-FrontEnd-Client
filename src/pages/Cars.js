@@ -56,7 +56,7 @@ function Cars() {
 	useEffect(() => {
 		getCars();
 	}, [searchTerm]);
-	console.log(cars);
+	// console.log(cars);
 	return (
 		<BodyContainer>
 			<FilterConatiner>

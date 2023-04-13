@@ -35,7 +35,7 @@ function Login() {
 	};
 
 	return (
-		<div className="w-full h-screen flex justify-center items-center">
+		<div className="w-full h-screen flex justify-center items-center ">
 			{' '}
 			<div className="hidden md:block h-full md:w-1/2 bg-login-redPic bg-cover bg-no-repeat grayscale-[50%]"></div>
 			<div className="w-full md:w-1/2 flex justify-center items-center bg-gray-100 h-full">
