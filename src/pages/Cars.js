@@ -5,7 +5,7 @@ import AuthUser from '../PrivateRoute/AuthUser';
 import { Car } from '../components/car';
 const BodyContainer = styled.div`
 	${tw`
-		w-full bg-neutral-100 
+		w-full bg-gray-100 
 	`};
 `;
 const FilterConatiner = styled.div`

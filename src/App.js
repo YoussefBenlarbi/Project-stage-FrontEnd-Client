@@ -12,6 +12,7 @@ import BookCar from './pages/BookCar';
 import { PrivateRoute } from './PrivateRoute';
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
+import SaisieInfos from './pages/SaisieInfos';
 const AppContainer = styled.div`
 	${tw`
         w-full
@@ -23,7 +24,7 @@ const AppContainer = styled.div`
 export default function App() {
 	return (
 		<AppContainer>
-					<ToastContainer />
+			<ToastContainer />
 			<Router>
 				<Routes>
 					{/* <Route path="/" element={<HomePage />}>
@@ -32,13 +33,14 @@ export default function App() {
 						<Route index element={<HomePage />} />
 						<Route path="cars" element={<Cars />}></Route>
 						<Route path="contacts" element={<ConatctUs />}></Route>
-						<Route  element={<PrivateRoute />}>
+						<Route element={<PrivateRoute />}>
 							<Route path="book-car" element={<BookCar />}></Route>
 						</Route>
 					</Route>
 					<Route>
 						<Route path="login" element={<Login />}></Route>
 						<Route path="register" element={<Register />}></Route>
+						<Route path="saisieInfos/:id" element={<SaisieInfos />}></Route>
 					</Route>
 				</Routes>
 			</Router>
