@@ -12,6 +12,7 @@ export function ProfilIcon() {
 	const logoutAdmin = () => {
 		if (token != undefined) {
 			logout();
+			window.location.reload();
 		}
 	};
 	return (
