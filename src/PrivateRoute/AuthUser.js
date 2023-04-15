@@ -26,7 +26,8 @@ export default function AuthUser() {
 	};
 	const logout = () => {
 		sessionStorage.clear();
-		navigate('/login');
+		// navigate('/login');
+		
 	};
 	const http = axios.create({
 		baseURL: 'http://localhost:8000/api',

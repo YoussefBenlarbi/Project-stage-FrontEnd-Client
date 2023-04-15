@@ -76,20 +76,28 @@ function Login() {
 						{/* <p className="text-red-500 text-xs italic">Please choose a password.</p> */}
 					</div>
 					<div className="flex items-center justify-between">
-						<button
-							className="bg-gray-900 hover:bg-gray-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline"
-							type="submit"
-							onClick={handleLogin}
-							disabled={loading}
-						>
-							{loading ? 'Loading...' : 'Sign in '}
-						</button>
 						<Link
 							className="inline-block align-baseline font-bold text-sm text-red-500 hover:text-red-800"
 							to="/"
 						>
 							Go Back
 						</Link>
+						<div className='flex gap-3 justify-center items-center flex-col md:flex-row'>
+							<Link
+								className="text-sm text-gray-600 underline hover:text-gray-900"
+								to="/register"
+							>
+								Create an account?
+							</Link>
+							<button
+								className="bg-gray-900 hover:bg-gray-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline"
+								type="submit"
+								onClick={handleLogin}
+								disabled={loading}
+							>
+								{loading ? 'Loading...' : 'Sign in '}
+							</button>
+						</div>
 					</div>
 					<p className="text-center mt-5 text-gray-500 text-xs">
 						&copy;2020 Acme Corp. All rights reserved.
