@@ -176,16 +176,16 @@ export function Car(props) {
 	return (
 		<CarContainer>
 			<CarThumbnail>
-				<img src={thumbnailUrl} />
+				<img src={`http://127.0.0.1:8000/api/${thumbnailUrl}`} alt="" />
 			</CarThumbnail>
 			<CarName>{name}</CarName>
 			<PricesContainer>
 				<DailyPrice>
-					${dailyPrice}
+					{dailyPrice} DH
 					<SmallText>/Day</SmallText>
 				</DailyPrice>
 				<MonthlyPrice>
-					${monthlyPrice}
+					{monthlyPrice} DH
 					<SmallText>/Month</SmallText>
 				</MonthlyPrice>
 			</PricesContainer>

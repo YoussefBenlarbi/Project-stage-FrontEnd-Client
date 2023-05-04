@@ -4,10 +4,11 @@ import { useNavigate } from 'react-router-dom';
 import { Popover, Transition, Menu } from '@headlessui/react';
 import classNames from 'classnames';
 import { Fragment } from 'react';
-
+import profilPictureMale from '../../assets/images/adminMale2.png';
+import profilPictureFemale from '../../assets/images/AdminFemale.jpg';
 export function ProfilIcon() {
 	const navigate = useNavigate();
-	const { token, logout } = AuthUser();
+	const { token, logout, user } = AuthUser();
 
 	const logoutAdmin = () => {
 		if (token != undefined) {
@@ -15,19 +16,34 @@ export function ProfilIcon() {
 			window.location.reload();
 		}
 	};
+	if (user) {
+		console.log(user);
+	}
+
 	return (
 		<Menu as="div" className="relative inline-block text-left ">
 			<div className="flex items-center justify-center">
 				<Menu.Button className=" inline-flex rounded-full  focus:outline-none focus:ring-2 focus:ring-neutral-400">
 					<span className="sr-only">Open user Menu</span>
-					<div
+					{/* <div
 						className="h-8 w-8  rounded-full bg-sky-500 bg-cover bg-no-repeat bg-center"
-						style={{
-							backgroundImage: `url("https://source.unsplash.com/80x80?face")`,
-						}}
-					>
-						<span className="sr-only">John Doe</span>
-					</div>
+						// style={{
+						// 	backgroundImage: `url("https://source.unsplash.com/80x80?face")`,
+						// }}
+						
+					> */}
+					<img
+						src={
+							user.detail.sexe === 'male'
+								? profilPictureMale
+								: profilPictureFemale
+						}
+						alt="profil"
+						className="h-10 w-10  rounded-full bg-sky-500 object-cover bg-cover bg-no-repeat"
+					/>
+
+					<span className="sr-only">John Doe</span>
+					{/* </div> */}
 				</Menu.Button>
 			</div>
 			<Transition
@@ -53,7 +69,7 @@ export function ProfilIcon() {
 							</div>
 						)}
 					</Menu.Item>
-					<Menu.Item>
+					{/* <Menu.Item>
 						{({ active }) => (
 							<div
 								className={classNames(
@@ -65,7 +81,7 @@ export function ProfilIcon() {
 								settings
 							</div>
 						)}
-					</Menu.Item>
+					</Menu.Item> */}
 					<Menu.Item>
 						{({ active }) => (
 							<div
