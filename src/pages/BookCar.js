@@ -5,6 +5,7 @@ import { useEffect, useState } from 'react';
 import { formatDate } from '../components/utils/dateFormateur';
 import AuthUser from '../PrivateRoute/AuthUser';
 import { toast } from 'react-toastify';
+import ChildComponent from '../components/DatePicker/date_start';
 const BookCarContainer = styled.div`
 	${tw`
 		w-full   bg-gray-100 flex  flex-col p-2 sm:justify-center sm:items-center 
@@ -61,6 +62,7 @@ function BookCar() {
 	const location = useLocation();
 	const { startDate, returnDate, id } = location.state || {};
 	console.log(id);
+	const Dates = ['2023-05-08', '2023-05-04', '2023-05-02', '2023-05-09'];
 	const [cars, setCars] = useState();
 	const initialState = {
 		date_start: startDate ? formatDate(startDate) : '',
@@ -81,16 +83,20 @@ function BookCar() {
 	const { date_start, date_end, note, car_id } = state;
 
 	function handleChange(e) {
-		const { name, value } = e.target;
-		if (name === 'car_id') {
-			setState((prev) => {
-				return { ...prev, [name]: value };
-			});
-		} else {
-			setState((prev) => {
-				return { ...prev, [name]: value };
-			});
+		if (e && e.target) {
+			// your code here
+			const { name, value } = e.target;
+			if (name === 'car_id') {
+				setState((prev) => {
+					return { ...prev, [name]: value };
+				});
+			} else {
+				setState((prev) => {
+					return { ...prev, [name]: value };
+				});
+			}
 		}
+		console.log(e.target);
 	}
 	async function handleSubmit() {
 		if (!date_start || !date_end || !note || car_id === 'rien') {
@@ -146,22 +152,34 @@ function BookCar() {
 				</InputContainer>
 				<InputContainer>
 					<Label>Date Start</Label>
-					<Input
+					{/* <Input
 						placeholder="Name..."
 						type="date"
 						name="date_start"
 						value={date_start}
 						onChange={handleChange}
+					/> */}
+					<ChildComponent
+						value={date_start}
+						handleChange={handleChange}
+						Dates={Dates}
+						nameInput="date_start"
 					/>
 				</InputContainer>
 				<InputContainer>
 					<Label>Date Return</Label>
-					<Input
+					{/* <Input
 						placeholder="Name..."
 						type="date"
 						name="date_end"
 						value={date_end}
 						onChange={handleChange}
+					/> */}
+					<ChildComponent
+						value={date_end}
+						handleChange={handleChange}
+						Dates={Dates}
+						nameInput="date_end"
 					/>
 				</InputContainer>
 				<InputContainer>
@@ -176,7 +194,7 @@ function BookCar() {
 						placeholder="Add a little note..."
 					></Textarea>
 				</InputContainer>
-				
+
 				<ButtonContainer>
 					<Button onClick={(e) => handleSubmit(e)}>Book the ride</Button>
 				</ButtonContainer>
