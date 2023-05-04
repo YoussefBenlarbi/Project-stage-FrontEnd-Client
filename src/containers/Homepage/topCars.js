@@ -69,7 +69,7 @@ export function TopCars() {
 					showArrows={false}
 					showThumbs={false}
 				>
-					{cars.map((car) => (
+					{cars.slice(0, 4).map((car) => (
 						<Car
 							key={car.id}
 							id={car.id}

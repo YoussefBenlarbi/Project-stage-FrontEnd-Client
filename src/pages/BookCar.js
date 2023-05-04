@@ -124,6 +124,27 @@ function BookCar() {
 			<FormContainer>
 				<Title>Reservation Form</Title>
 				<InputContainer>
+					<Label>Choix de Voiture</Label>
+					<Select
+						name="car_id"
+						id="car_id"
+						value={car_id}
+						onChange={handleChange}
+
+						// defaultValue={id || 'rien'}
+					>
+						<option value="rien" disabled={true}>
+							Choisir la voiture
+						</option>
+						{cars &&
+							cars.map((car) => (
+								<option value={car.id} key={car.id}>
+									{car.name}
+								</option>
+							))}
+					</Select>
+				</InputContainer>
+				<InputContainer>
 					<Label>Date Start</Label>
 					<Input
 						placeholder="Name..."
@@ -155,27 +176,7 @@ function BookCar() {
 						placeholder="Add a little note..."
 					></Textarea>
 				</InputContainer>
-				<InputContainer>
-					<Label>Choix de Voiture</Label>
-					<Select
-						name="car_id"
-						id="car_id"
-						value={car_id}
-						onChange={handleChange}
-
-						// defaultValue={id || 'rien'}
-					>
-						<option value="rien" disabled={true}>
-							Choisir la voiture
-						</option>
-						{cars &&
-							cars.map((car) => (
-								<option value={car.id} key={car.id}>
-									{car.name}
-								</option>
-							))}
-					</Select>
-				</InputContainer>
+				
 				<ButtonContainer>
 					<Button onClick={(e) => handleSubmit(e)}>Book the ride</Button>
 				</ButtonContainer>
