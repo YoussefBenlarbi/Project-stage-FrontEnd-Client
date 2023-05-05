@@ -146,7 +146,7 @@ const ButtonsContainer = styled.div`
 	${tw`
     flex
     flex-wrap
-    mt-4
+    mt-6
   `};
 `;
 
@@ -164,7 +164,6 @@ export function TopSection() {
 					<Link to="book-car">
 						<Button  text="Book Your Ride" />
 					</Link>
-					{/* <Button theme="filled" text="Sell Your Car" /> */}
 				</ButtonsContainer>
 			</LeftContainer>
 			<RightContainer>

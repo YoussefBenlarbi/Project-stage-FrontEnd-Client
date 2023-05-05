@@ -29,6 +29,7 @@ const OutlinedButton = styled(BaseButton)`
         hover:bg-transparent
         hover:text-red-500
         hover:border-red-500
+        md:w-[250px]
     `}
 `;
 const FilledButton = styled(BaseButton)`
@@ -39,6 +40,7 @@ const FilledButton = styled(BaseButton)`
         hover:bg-red-500
         hover:text-white
         hover:border-transparent
+        md:w-[250px]
     `}
 `;
 export default function Button(props) {

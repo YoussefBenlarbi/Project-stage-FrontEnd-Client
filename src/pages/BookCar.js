@@ -62,16 +62,18 @@ function BookCar() {
 	const location = useLocation();
 	const { startDate, returnDate, id } = location.state || {};
 	// console.log(id);
-	const Dates = ['2023-05-08', '2023-05-04', '2023-05-02', '2023-05-09'];
+	// const Dates = ['2023-05-08', '2023-05-04', '2023-05-02', '2023-05-09'];
 	const [cars, setCars] = useState();
-	const [datesBooked, setDatesBooked] = useState([]);
 
+	const [datesBooked, setDatesBooked] = useState([]);
 	const initialState = {
 		date_start: startDate ? formatDate(startDate) : '',
 		date_end: returnDate ? formatDate(returnDate) : '',
 		note: '',
 		car_id: id || 'rien',
 	};
+	const [state, setState] = useState(initialState);
+	const { date_start, date_end, note, car_id } = state;
 	// function to retrieve the car data
 	const getCars = async () => {
 		const apiCars = await http.get('/carsInfo');
@@ -81,17 +83,24 @@ function BookCar() {
 	const getDates = async (id) => {
 		const apiDates = await http.get(`/datesCar/${id}`);
 		setDatesBooked(apiDates.data.dates);
-		if (datesBooked) {
-			console.log(datesBooked);
-		};
+		// setState({...state,date_start:"",date_end:""});
+
+		if (startDate) {
+			let dato = formatDate(startDate);
+			if (datesBooked) {
+				console.log("----"+dato);
+				console.log(datesBooked);
+				console.log(datesBooked.find((elm) => elm == dato));
+			}
+		}
 	};
 	useEffect(() => {
 		getCars();
+		if (id) {
+			getDates(id);
+		}
 	}, []);
 	// console.log(cars);
-	const [state, setState] = useState(initialState);
-
-	const { date_start, date_end, note, car_id } = state;
 
 	function handleChange(e) {
 		if (e && e.target) {
@@ -163,13 +172,6 @@ function BookCar() {
 				</InputContainer>
 				<InputContainer>
 					<Label>Date Start</Label>
-					{/* <Input
-						placeholder="Name..."
-						type="date"
-						name="date_start"
-						value={date_start}
-						onChange={handleChange}
-					/> */}
 					<ChildComponent
 						value={date_start}
 						handleChange={handleChange}
@@ -179,13 +181,6 @@ function BookCar() {
 				</InputContainer>
 				<InputContainer>
 					<Label>Date Return</Label>
-					{/* <Input
-						placeholder="Name..."
-						type="date"
-						name="date_end"
-						value={date_end}
-						onChange={handleChange}
-					/> */}
 					<ChildComponent
 						value={date_end}
 						handleChange={handleChange}

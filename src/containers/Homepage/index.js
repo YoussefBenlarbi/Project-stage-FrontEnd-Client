@@ -18,6 +18,7 @@ const PageContainer = styled.div`
         overflow-x-hidden
     `}
 `;
+
 export function HomePage() {
 	return (
 		// <PageContainer>
@@ -25,7 +26,8 @@ export function HomePage() {
 		<>
 			<TopSection />
 			<Marginer direction="vertical" margin="2em" />
-			<BookCard />
+			{/* <BookCard /> */}
+			
 			<Marginer direction="vertical" margin="2em" />
 			<BookingSteps />
 			<Marginer direction="vertical" margin="2em" />

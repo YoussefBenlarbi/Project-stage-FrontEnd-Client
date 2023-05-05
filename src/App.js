@@ -4,8 +4,8 @@ import tw from 'twin.macro';
 import { Route, Routes, BrowserRouter as Router } from 'react-router-dom';
 import { HomePage } from './containers/Homepage';
 import Login from './pages/Login';
-import Login2 from './pages/Login2';
 import Register from './pages/Register';
+// import Register2 from './pages/Register2';
 import Layout from './components/shared/Layout';
 import ConatctUs from './pages/ConatctUs';
 import Cars from './pages/Cars';
@@ -40,7 +40,7 @@ export default function App() {
 					</Route>
 					<Route>
 						<Route path="login" element={<Login />}></Route>
-						<Route path="login2" element={<Login2 />}></Route>
+						{/* <Route path="register" element={<Register />}></Route> */}
 						<Route path="register" element={<Register />}></Route>
 						<Route path="saisieInfos/:id" element={<SaisieInfos />}></Route>
 					</Route>

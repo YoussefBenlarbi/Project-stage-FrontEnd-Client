@@ -10,6 +10,7 @@ function ChildComponent({ value, handleChange, Dates, nameInput }) {
 			' border border-gray-200 focus:border-2 p-1 rounded-md focus:border-blue-500 focus:outline-none w-full',
 		// type: 'date',
 		name: nameInput,
+		
 	};
 	// const Dates = [];
 	const disableCustomDt = (current) => {
@@ -19,9 +20,11 @@ function ChildComponent({ value, handleChange, Dates, nameInput }) {
 		<div>
 			<DatePicker
 				timeFormat={false}
-        closeOnSelect={true}
+				closeOnSelect={true}
 				inputProps={inputProps}
 				isValidDate={disableCustomDt}
+				input={true}
+				
 				onChange={(e) => {
 					const newEvent = {
 						target: {
