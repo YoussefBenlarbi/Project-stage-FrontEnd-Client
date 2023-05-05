@@ -61,18 +61,29 @@ function BookCar() {
 	const navigate = useNavigate();
 	const location = useLocation();
 	const { startDate, returnDate, id } = location.state || {};
-	console.log(id);
+	// console.log(id);
 	const Dates = ['2023-05-08', '2023-05-04', '2023-05-02', '2023-05-09'];
 	const [cars, setCars] = useState();
+	const [datesBooked, setDatesBooked] = useState([]);
+
 	const initialState = {
 		date_start: startDate ? formatDate(startDate) : '',
 		date_end: returnDate ? formatDate(returnDate) : '',
 		note: '',
 		car_id: id || 'rien',
 	};
+	// function to retrieve the car data
 	const getCars = async () => {
 		const apiCars = await http.get('/carsInfo');
 		setCars(apiCars.data);
+	};
+	// retrieve all the dates what will be passed to the datePicker
+	const getDates = async (id) => {
+		const apiDates = await http.get(`/datesCar/${id}`);
+		setDatesBooked(apiDates.data.dates);
+		if (datesBooked) {
+			console.log(datesBooked);
+		};
 	};
 	useEffect(() => {
 		getCars();
@@ -90,18 +101,20 @@ function BookCar() {
 				setState((prev) => {
 					return { ...prev, [name]: value };
 				});
+				// call the function to retrieve booked dates / value equal  id
+				getDates(value);
 			} else {
 				setState((prev) => {
 					return { ...prev, [name]: value };
 				});
 			}
 		}
-		console.log(e.target);
+		// console.log(e.target);
 	}
 	async function handleSubmit() {
 		if (!date_start || !date_end || !note || car_id === 'rien') {
 			alert('Tous les champs obligatoires ');
-			console.log(state);
+			// console.log(state);
 			return;
 		}
 		let todayDate = new Date();
@@ -112,7 +125,6 @@ function BookCar() {
 		};
 		console.log(reservation);
 		await http.post('/reservations', reservation);
-		// alert('reservation bien enregistrer');
 		toast.success('Reservation bien enregistrer', {
 			position: 'top-center',
 			autoClose: 500,
@@ -136,7 +148,6 @@ function BookCar() {
 						id="car_id"
 						value={car_id}
 						onChange={handleChange}
-
 						// defaultValue={id || 'rien'}
 					>
 						<option value="rien" disabled={true}>
@@ -162,7 +173,7 @@ function BookCar() {
 					<ChildComponent
 						value={date_start}
 						handleChange={handleChange}
-						Dates={Dates}
+						Dates={datesBooked ? datesBooked : []}
 						nameInput="date_start"
 					/>
 				</InputContainer>
@@ -178,7 +189,7 @@ function BookCar() {
 					<ChildComponent
 						value={date_end}
 						handleChange={handleChange}
-						Dates={Dates}
+						Dates={datesBooked ? datesBooked : []}
 						nameInput="date_end"
 					/>
 				</InputContainer>
