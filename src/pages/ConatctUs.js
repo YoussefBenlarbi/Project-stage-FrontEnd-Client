@@ -1,7 +1,20 @@
-import React from 'react';
+import React, { useState } from 'react';
 import tw from 'twin.macro';
 import styled from 'styled-components';
+import AuthUser from '../PrivateRoute/AuthUser';
+import { useNavigate } from 'react-router-dom';
+import { toast } from 'react-toastify';
 
+const configToast = {
+	position: 'top-center',
+	autoClose: 1000,
+	hideProgressBar: false,
+	closeOnClick: true,
+	pauseOnHover: false,
+	draggable: true,
+	progress: undefined,
+	theme: 'light',
+};
 const ContactContainer = styled.div`
 	${tw`
 		w-full  bg-gray-100 flex flex-col md:items-center md:justify-items-center 
@@ -34,6 +47,28 @@ const Button = styled.button`
 	`};
 `;
 function ConatctUs() {
+	const { http, user } = AuthUser();
+	const navigate = useNavigate();
+	const [name, setName] = useState('');
+	const [email, setEmail] = useState('');
+	const [message, setMessage] = useState('');
+	const handleRequest = async (e) => {
+		e.preventDefault();
+
+		try {
+			const response = await http.post('/messages', {
+				name: name,
+				email: email,
+				message: message,
+			});
+			// do something with response data
+			toast.success('your message is sent succesfylly ', configToast);
+			navigate('/');
+		} catch (err) {
+			// handle error
+			console.error(err);
+		}
+	};
 	return (
 		<ContactContainer>
 			<InnerContainer>
@@ -45,15 +80,25 @@ function ConatctUs() {
 					providing you with the best possible service and support. We look
 					forward to hearing from you.
 				</p>
-				<InputField type="text" placeholder="Name..." />
+				<InputField
+					type="text"
+					placeholder="Name..."
+					onChange={(e) => setName(e.target.value)}
+				/>
+				<InputField
+					type="text"
+					placeholder="Email..."
+					onChange={(e) => setEmail(e.target.value)}
+				/>
 				<TextAreaField
 					name=""
 					id=""
 					cols="30"
 					rows="10"
 					placeholder="Message..."
+					onChange={(e) => setMessage(e.target.value)}
 				></TextAreaField>
-				<Button>Submit</Button>
+				<Button onClick={handleRequest}>Submit</Button>
 			</InnerContainer>
 		</ContactContainer>
 	);
