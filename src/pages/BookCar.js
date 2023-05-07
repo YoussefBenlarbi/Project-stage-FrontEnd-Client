@@ -64,6 +64,7 @@ function BookCar() {
 	// console.log(id);
 	// const Dates = ['2023-05-08', '2023-05-04', '2023-05-02', '2023-05-09'];
 	const [cars, setCars] = useState();
+	const [displayedCar, setDisplayedCar] = useState([]);
 
 	const [datesBooked, setDatesBooked] = useState([]);
 	const initialState = {
@@ -112,6 +113,8 @@ function BookCar() {
 				});
 				// call the function to retrieve booked dates / value equal  id
 				getDates(value);
+				setDisplayedCar(cars.find(elm=>elm.id == value));
+				console.log(displayedCar);
 			} else {
 				setState((prev) => {
 					return { ...prev, [name]: value };

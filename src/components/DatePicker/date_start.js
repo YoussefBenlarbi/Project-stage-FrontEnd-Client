@@ -5,16 +5,16 @@ import { formatDate } from '../utils/dateFormateur';
 
 function ChildComponent({ value, handleChange, Dates, nameInput }) {
 	let inputProps = {
-		placeholder: 'YYYY-MM-DD',
+		placeholder: 'jj-mm-aaaa',
 		className:
-			' border border-gray-200 focus:border-2 p-1 rounded-md focus:border-blue-500 focus:outline-none w-full',
+			' border border-gray-200  text-gray-800 focus:border-2 p-1 rounded-md focus:border-blue-500 focus:outline-none w-full',
 		// type: 'date',
 		name: nameInput,
 		
 	};
 	// const Dates = [];
 	const disableCustomDt = (current) => {
-		return !Dates.includes(current.format('YYYY-MM-DD'));
+		return !Dates.includes(current.format('YYYY-mm-aaaa'));
 	};
 	return (
 		<div>

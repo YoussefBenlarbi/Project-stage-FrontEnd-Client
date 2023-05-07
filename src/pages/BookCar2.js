@@ -6,6 +6,7 @@ import { formatDate } from '../components/utils/dateFormateur';
 import AuthUser from '../PrivateRoute/AuthUser';
 import { toast } from 'react-toastify';
 import ChildComponent from '../components/DatePicker/date_start';
+import { Car } from '../components/car';
 const BookCarContainer = styled.div`
 	${tw`
 		w-full   bg-gray-100 flex  flex-col p-2 sm:justify-center sm:items-center 
@@ -18,7 +19,7 @@ const Title = styled.h1`
 `;
 const FormContainer = styled.div`
 	${tw`
-		border m-3 shadow-lg p-6 rounded-lg lg:w-[40%] sm:m-6 bg-white
+		 m-3  p-6 rounded-lg lg:w-[40%] sm:m-6 bg-white
 	`};
 `;
 const InputContainer = styled.div`
@@ -88,7 +89,7 @@ function BookCar() {
 		if (startDate) {
 			let dato = formatDate(startDate);
 			if (datesBooked) {
-				console.log("----"+dato);
+				console.log('----' + dato);
 				console.log(datesBooked);
 				console.log(datesBooked.find((elm) => elm == dato));
 			}
@@ -147,65 +148,52 @@ function BookCar() {
 		navigate('/');
 	}
 	return (
-		<BookCarContainer>
-			<FormContainer>
-				<Title>Reservation Form 2</Title>
-				<InputContainer>
-					<Label>Choix de Voiture</Label>
-					<Select
-						name="car_id"
-						id="car_id"
-						value={car_id}
-						onChange={handleChange}
-						// defaultValue={id || 'rien'}
-					>
-						<option value="rien" disabled={true}>
-							Choisir la voiture
-						</option>
-						{cars &&
-							cars.map((car) => (
-								<option value={car.id} key={car.id}>
-									{car.name}
-								</option>
-							))}
-					</Select>
-				</InputContainer>
-				<InputContainer>
-					<Label>Date Start</Label>
-					<ChildComponent
-						value={date_start}
-						handleChange={handleChange}
-						Dates={datesBooked ? datesBooked : []}
-						nameInput="date_start"
-					/>
-				</InputContainer>
-				<InputContainer>
-					<Label>Date Return</Label>
-					<ChildComponent
-						value={date_end}
-						handleChange={handleChange}
-						Dates={datesBooked ? datesBooked : []}
-						nameInput="date_end"
-					/>
-				</InputContainer>
-				<InputContainer>
-					<Label>Note</Label>
-					<Textarea
-						id=""
-						cols="20"
-						rows="4"
-						name="note"
-						value={note}
-						onChange={handleChange}
-						placeholder="Add a little note..."
-					></Textarea>
-				</InputContainer>
+		<div className="w-full h-screen flex bg-neutral-100">
+			<div className="p-6 flex justify-end items-center w-[50%]">
+				<Car
+					key={'1'}
+					id={'1'}
+					name={'Ferrari Spider'}
+					mileage={120000}
+					thumbnailUrl={'images/image-1682365366943.jpg'}
+					dailyPrice={300}
+					monthlyPrice={4800}
+					gearType={'auto'}
+					gasType={'petrol'}
+				/>
+			</div>
+			<div className="p-6 flex-1 flex flex-col justify-between">
+				<h2 className="text-xl font-semibold mb-4 ml-12">
+					Car Agency 
+				</h2>
+				<select
+					name="voiture"
+					id="voiture"
+					className="p-2 border shadow outline-none focus:border-blue-500 rounded  w-60 mb-6 "
+				>
+					<option value="1">opt1</option>
+					<option value="2">opt2</option>
+					<option value="3">opt3</option>
+				</select>
 
-				<ButtonContainer>
-					<Button onClick={(e) => handleSubmit(e)}>Book the ride</Button>
-				</ButtonContainer>
-			</FormContainer>
-		</BookCarContainer>
+				<input
+					type="date"
+					className="border shadow p-2 outline-none focus:border-blue-500 rounded w-60 mb-6"
+				/>
+				<input
+					type="date"
+					className="border shadow p-2 outline-none focus:border-blue-500 rounded w-60 mb-6"
+				/>
+				<textarea
+					name=""
+					id=""
+					cols="20"
+					rows="5"
+					placeholder="Note"
+					className="border shadow p-2 outline-none focus:border-blue-500 rounded w-60 mb-6"
+				></textarea>
+			</div>
+		</div>
 	);
 	// You can now use startDate and returnDate in your component
 }
