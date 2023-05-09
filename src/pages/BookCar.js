@@ -8,21 +8,7 @@ import { toast } from 'react-toastify';
 import ChildComponent from '../components/DatePicker/date_start';
 import { Car } from '../components/car/CarForm';
 import CustomDatePicker from '../components/DatePicker/ReactDatePicker';
-const BookCarContainer = styled.div`
-	${tw`
-		w-full   bg-gray-100 flex  flex-col p-2 sm:justify-center sm:items-center 
-	`};
-`;
-const Title = styled.h1`
-	${tw`
-		text-xl text-center font-bold text-cyan-800
-	`};
-`;
-const FormContainer = styled.div`
-	${tw`
-		m-3  p-6 rounded-lg lg:w-[40%] sm:m-6 bg-white
-	`};
-`;
+
 const InputContainer = styled.div`
 	${tw` p-1 flex flex-col text-black
 	`};
@@ -32,16 +18,7 @@ const Label = styled.h2`
 		font-semibold text-black mb-2
 	`};
 `;
-const Input = styled.input`
-	${tw`
-		border border-gray-200 focus:border-2 p-1 rounded-md  focus:border-blue-500 focus:outline-none
-	`};
-`;
-const Textarea = styled.textarea`
-	${tw`
-		border focus:border-2 border-gray-200 p-1 rounded-md  focus:border-blue-500 focus:outline-none
-	`};
-`;
+
 const ButtonContainer = styled.div`
 	${tw`
 		w-full p-1 flex whitespace-nowrap justify-start text-center 
@@ -52,11 +29,7 @@ const Button = styled.button`
 		p-2 bg-cyan-800 w-[40%]  mt-2 rounded-lg text-white border hover:bg-transparent hover:text-cyan-800 border-cyan-800
 	`};
 `;
-const Select = styled.select`
-	${tw`
-		p-1 focus:outline-none border focus:border-2 focus:border-blue-500 border-gray-200 rounded-lg
-	`};
-`;
+
 
 function BookCar() {
 	const { http, user } = AuthUser();

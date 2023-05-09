@@ -92,7 +92,7 @@ function Login() {
 	};
 
 	return (
-		<div className="w-full h-screen flex   ">
+		<form className="w-full h-screen flex " onSubmit={handleLogin}>
 			<Section1>
 				<StandaloneCar>
 					<img src={McLaren} alt="" />
@@ -119,7 +119,7 @@ function Login() {
 						onChange={(e) => setPassword(e.target.value)}
 					/>
 				</div>
-				<Button type="submit" onClick={handleLogin} disabled={loading}>
+				<Button type="submit"  disabled={loading}>
 					{loading ? 'Loading...' : 'Connexion'}
 				</Button>
 				<div className="flex items-center justify-between w-[50%]">
@@ -149,7 +149,7 @@ function Login() {
 					{feedback && <AlertError feedback={feedback} />}
 				</span>
 			</Section2>
-		</div>
+		</form>
 	);
 }
 
