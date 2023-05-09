@@ -9,8 +9,9 @@ import Register from './pages/Register';
 import Layout from './components/shared/Layout';
 import ConatctUs from './pages/ConatctUs';
 import Cars from './pages/Cars';
+// import BookCar from './pages/BookCar';
+// import BookCar2 from './pages/BookCar2';
 import BookCar from './pages/BookCar';
-import BookCar2 from './pages/BookCar2';
 import { PrivateRoute } from './PrivateRoute';
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
@@ -36,8 +37,9 @@ export default function App() {
 						<Route path="cars" element={<Cars />}></Route>
 						<Route path="contacts" element={<ConatctUs />}></Route>
 						<Route element={<PrivateRoute />}>
+							{/* <Route path="book-car" element={<BookCar />}></Route> */}
+							{/* <Route path="book-car2" element={<BookCar2 />}></Route> */}
 							<Route path="book-car" element={<BookCar />}></Route>
-							<Route path="book-car2" element={<BookCar2 />}></Route>
 						</Route>
 					</Route>
 					<Route>

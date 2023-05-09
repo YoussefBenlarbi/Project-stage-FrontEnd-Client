@@ -6,7 +6,7 @@ import { formatDate } from '../components/utils/dateFormateur';
 import AuthUser from '../PrivateRoute/AuthUser';
 import { toast } from 'react-toastify';
 import ChildComponent from '../components/DatePicker/date_start';
-import { Car } from '../components/car';
+import CustomDatePicker from '../components/DatePicker/ReactDatePicker';
 const BookCarContainer = styled.div`
 	${tw`
 		w-full   bg-gray-100 flex  flex-col p-2 sm:justify-center sm:items-center 
@@ -19,7 +19,7 @@ const Title = styled.h1`
 `;
 const FormContainer = styled.div`
 	${tw`
-		 m-3  p-6 rounded-lg lg:w-[40%] sm:m-6 bg-white
+		border m-3 shadow-lg p-6 rounded-lg lg:w-[40%] sm:m-6 bg-white
 	`};
 `;
 const InputContainer = styled.div`
@@ -65,11 +65,12 @@ function BookCar() {
 	// console.log(id);
 	// const Dates = ['2023-05-08', '2023-05-04', '2023-05-02', '2023-05-09'];
 	const [cars, setCars] = useState();
+	const [displayedCar, setDisplayedCar] = useState([]);
 
 	const [datesBooked, setDatesBooked] = useState([]);
 	const initialState = {
-		date_start: startDate ? formatDate(startDate) : '',
-		date_end: returnDate ? formatDate(returnDate) : '',
+		date_start: new Date(),
+		date_end: new Date(),
 		note: '',
 		car_id: id || 'rien',
 	};
@@ -84,16 +85,17 @@ function BookCar() {
 	const getDates = async (id) => {
 		const apiDates = await http.get(`/datesCar/${id}`);
 		setDatesBooked(apiDates.data.dates);
+		// console.log(apiDates.data.dates);
 		// setState({...state,date_start:"",date_end:""});
 
-		if (startDate) {
-			let dato = formatDate(startDate);
-			if (datesBooked) {
-				console.log('----' + dato);
-				console.log(datesBooked);
-				console.log(datesBooked.find((elm) => elm == dato));
-			}
-		}
+		// if (startDate) {
+		// 	let dato = formatDate(startDate);
+		// 	if (datesBooked) {
+		// 		console.log("----"+dato);
+		// 		console.log(datesBooked);
+		// 		console.log(datesBooked.find((elm) => elm == dato));
+		// 	}
+		// }
 	};
 	useEffect(() => {
 		getCars();
@@ -107,12 +109,15 @@ function BookCar() {
 		if (e && e.target) {
 			// your code here
 			const { name, value } = e.target;
+			console.log(e.target);
 			if (name === 'car_id') {
 				setState((prev) => {
 					return { ...prev, [name]: value };
 				});
 				// call the function to retrieve booked dates / value equal  id
 				getDates(value);
+				setDisplayedCar(cars.find((elm) => elm.id == value));
+				// console.log(displayedCar);
 			} else {
 				setState((prev) => {
 					return { ...prev, [name]: value };
@@ -148,52 +153,70 @@ function BookCar() {
 		navigate('/');
 	}
 	return (
-		<div className="w-full h-screen flex bg-neutral-100">
-			<div className="p-6 flex justify-end items-center w-[50%]">
-				<Car
-					key={'1'}
-					id={'1'}
-					name={'Ferrari Spider'}
-					mileage={120000}
-					thumbnailUrl={'images/image-1682365366943.jpg'}
-					dailyPrice={300}
-					monthlyPrice={4800}
-					gearType={'auto'}
-					gasType={'petrol'}
-				/>
-			</div>
-			<div className="p-6 flex-1 flex flex-col justify-between">
-				<h2 className="text-xl font-semibold mb-4 ml-12">
-					Car Agency 
-				</h2>
-				<select
-					name="voiture"
-					id="voiture"
-					className="p-2 border shadow outline-none focus:border-blue-500 rounded  w-60 mb-6 "
-				>
-					<option value="1">opt1</option>
-					<option value="2">opt2</option>
-					<option value="3">opt3</option>
-				</select>
+		<BookCarContainer>
+			<FormContainer>
+				<Title>Reservation Form</Title>
+				<InputContainer>
+					<Label>Choix de Voiture</Label>
+					<Select
+						name="car_id"
+						id="car_id"
+						value={car_id}
+						onChange={handleChange}
+						// defaultValue={id || 'rien'}
+					>
+						<option value="rien" disabled={true}>
+							Choisir la voiture
+						</option>
+						{cars &&
+							cars.map((car) => (
+								<option value={car.id} key={car.id}>
+									{car.name}
+								</option>
+							))}
+					</Select>
+				</InputContainer>
+				<InputContainer>
+					<Label>Date Start</Label>
+					{/* <ChildComponent
+						value={date_start}
+						handleChange={handleChange}
+						Dates={datesBooked ? datesBooked : []}
+						nameInput="date_start"
+					/> */}
+					<CustomDatePicker
+						date_start={date_start}
+						handleChange={handleChange}
+						DatesNooo={datesBooked ? datesBooked : []}
+					/>
+				</InputContainer>
+				<InputContainer>
+					<Label>Date Return</Label>
+					<ChildComponent
+						value={date_end}
+						handleChange={handleChange}
+						Dates={datesBooked ? datesBooked : []}
+						nameInput="date_end"
+					/>
+				</InputContainer>
+				<InputContainer>
+					<Label>Note</Label>
+					<Textarea
+						id=""
+						cols="20"
+						rows="4"
+						name="note"
+						value={note}
+						onChange={handleChange}
+						placeholder="Add a little note..."
+					></Textarea>
+				</InputContainer>
 
-				<input
-					type="date"
-					className="border shadow p-2 outline-none focus:border-blue-500 rounded w-60 mb-6"
-				/>
-				<input
-					type="date"
-					className="border shadow p-2 outline-none focus:border-blue-500 rounded w-60 mb-6"
-				/>
-				<textarea
-					name=""
-					id=""
-					cols="20"
-					rows="5"
-					placeholder="Note"
-					className="border shadow p-2 outline-none focus:border-blue-500 rounded w-60 mb-6"
-				></textarea>
-			</div>
-		</div>
+				<ButtonContainer>
+					<Button onClick={(e) => handleSubmit(e)}>Book the ride</Button>
+				</ButtonContainer>
+			</FormContainer>
+		</BookCarContainer>
 	);
 	// You can now use startDate and returnDate in your component
 }

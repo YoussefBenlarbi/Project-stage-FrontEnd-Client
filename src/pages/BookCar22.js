@@ -6,8 +6,7 @@ import { formatDate } from '../components/utils/dateFormateur';
 import AuthUser from '../PrivateRoute/AuthUser';
 import { toast } from 'react-toastify';
 import ChildComponent from '../components/DatePicker/date_start';
-import { Car } from '../components/car/CarForm';
-import CustomDatePicker from '../components/DatePicker/ReactDatePicker';
+import { Car } from '../components/car';
 const BookCarContainer = styled.div`
 	${tw`
 		w-full   bg-gray-100 flex  flex-col p-2 sm:justify-center sm:items-center 
@@ -24,7 +23,7 @@ const FormContainer = styled.div`
 	`};
 `;
 const InputContainer = styled.div`
-	${tw` p-1 flex flex-col text-black
+	${tw` p-1 flex flex-col
 	`};
 `;
 const Label = styled.h2`
@@ -62,26 +61,18 @@ function BookCar() {
 	const { http, user } = AuthUser();
 	const navigate = useNavigate();
 	const location = useLocation();
-	const { id } = location.state || {};
-
+	const { startDate, returnDate, id } = location.state || {};
 	const [cars, setCars] = useState();
 
 	const [datesBooked, setDatesBooked] = useState([]);
-	const [date_start, setDate_start] = useState();
-	const [date_end, setDate_end] = useState();
-	const [note, setNote] = useState('');
-	const [car_id, setCar_id] = useState(id || 'rien');
-
-	const [dispalyedCar, setDispalyedCar] = useState({
-		id: '1',
-		name: 'Clio 4',
-		mileage: 120000,
-		thumbnailUrl: 'images/image-1682365366943.jpg',
-		dailyPrice: 300,
-		monthlyPrice: 4800,
-		gearType: 'auto',
-		gasType: 'petrol',
-	});
+	const initialState = {
+		date_start: startDate ? formatDate(startDate) : '',
+		date_end: returnDate ? formatDate(returnDate) : '',
+		note: '',
+		car_id: id || 'rien',
+	};
+	const [state, setState] = useState(initialState);
+	const { date_start, date_end, note, car_id } = state;
 	// function to retrieve the car data
 	const getCars = async () => {
 		const apiCars = await http.get('/carsInfo');
@@ -91,8 +82,17 @@ function BookCar() {
 	const getDates = async (id) => {
 		const apiDates = await http.get(`/datesCar/${id}`);
 		setDatesBooked(apiDates.data.dates);
-		console.log(apiDates.data.dates);
+		console.log(apiDates.data.dates)
 		// setState({...state,date_start:"",date_end:""});
+
+		if (startDate) {
+			let dato = formatDate(startDate);
+			if (datesBooked) {
+				// console.log('----' + dato);
+				console.log(datesBooked);
+				// console.log(datesBooked.find((elm) => elm == dato));
+			}
+		}
 	};
 	useEffect(() => {
 		getCars();
@@ -101,11 +101,24 @@ function BookCar() {
 		}
 	}, []);
 	// console.log(cars);
-	function handleCarState(e) {
-		setCar_id(e.target.value);
-		getDates(e.target.value);
-		const selectedCar = cars.find((car) => car.id == e.target.value);
-		setDispalyedCar(selectedCar);
+
+	function handleChange(e) {
+		if (e && e.target) {
+			// your code here
+			const { name, value } = e.target;
+			if (name === 'car_id') {
+				setState((prev) => {
+					return { ...prev, [name]: value };
+				});
+				// call the function to retrieve booked dates / value equal  id
+				getDates(value);
+			} else {
+				setState((prev) => {
+					return { ...prev, [name]: value };
+				});
+			}
+		}
+		// console.log(e.target);
 	}
 	async function handleSubmit() {
 		if (!date_start || !date_end || !note || car_id === 'rien') {
@@ -115,15 +128,11 @@ function BookCar() {
 		}
 		let todayDate = new Date();
 		const reservation = {
-			date_start: formatDate(date_start),
-			note: note,
-			date_end: formatDate(date_end),
-			car_id: car_id,
+			...state,
 			user_id: user.id,
 			date_reservation: formatDate(todayDate),
 		};
-		console.log(reservation);
-
+		// console.log(reservation);
 		await http.post('/reservations', reservation);
 		toast.success('Reservation bien enregistrer', {
 			position: 'top-center',
@@ -141,26 +150,24 @@ function BookCar() {
 		<div className="w-full h-screen flex bg-neutral-100">
 			<div className="p-6 flex justify-end items-center w-[50%]">
 				<Car
-					key={dispalyedCar.id}
-					id={dispalyedCar.id}
-					name={dispalyedCar.name}
-					mileage={dispalyedCar.mileage}
-					thumbnailUrl={dispalyedCar.thumbnailUrl}
-					dailyPrice={dispalyedCar.dailyPrice}
-					monthlyPrice={dispalyedCar.monthlyPrice}
-					gearType={dispalyedCar.gearType}
-					gasType={dispalyedCar.gasType}
+					key={'1'}
+					id={'1'}
+					name={'Ferrari Spider'}
+					mileage={120000}
+					thumbnailUrl={'images/image-1682365366943.jpg'}
+					dailyPrice={300}
+					monthlyPrice={4800}
+					gearType={'auto'}
+					gasType={'petrol'}
 				/>
 			</div>
 			<div className="p-6 flex-1 flex flex-col justify-between">
-				<h2 className="text-xl font-semibold mb-4 ml-10">
-					Choose your dates 3
-				</h2>
+				<h2 className="text-xl font-semibold mb-4 ml-10">Choose your dates</h2>
 				<select
 					name="car_id"
 					id="car_id"
 					value={car_id}
-					onChange={(e) => handleCarState(e)}
+					onChange={handleChange}
 					className="p-2 border shadow outline-none focus:border-blue-500 rounded  w-60 mb-6 "
 				>
 					<option value="rien" disabled={true}>
@@ -176,18 +183,20 @@ function BookCar() {
 
 				<InputContainer>
 					<Label>Date Start</Label>
-					<CustomDatePicker
-						date_start={date_start}
-						handleChange={setDate_start}
-						DatesNooo={dispalyedCar ? datesBooked : []}
+					<ChildComponent
+						value={date_start}
+						handleChange={handleChange}
+						Dates={datesBooked ? datesBooked : []}
+						nameInput="date_start"
 					/>
 				</InputContainer>
 				<InputContainer>
 					<Label>Date Return</Label>
-					<CustomDatePicker
-						date_start={date_end}
-						handleChange={setDate_end}
-						DatesNooo={datesBooked ? datesBooked : []}
+					<ChildComponent
+						value={date_end}
+						handleChange={handleChange}
+						Dates={datesBooked ? datesBooked : []}
+						nameInput="date_end"
 					/>
 				</InputContainer>
 				<textarea
@@ -196,9 +205,9 @@ function BookCar() {
 					rows="4"
 					name="note"
 					value={note}
-					onChange={(e) => setNote(e.target.value)}
+					onChange={handleChange}
 					placeholder="Add a little note..."
-					className="border mt-4 shadow p-2 outline-none focus:border-blue-500 rounded w-60 mb-6"
+					className="border shadow p-2 outline-none focus:border-blue-500 rounded w-60 mb-6"
 				></textarea>
 				<ButtonContainer>
 					<Button onClick={(e) => handleSubmit(e)}>Book the ride</Button>
