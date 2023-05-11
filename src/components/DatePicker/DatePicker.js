@@ -3,22 +3,21 @@ import DatePicker from 'react-datetime';
 import 'react-datetime/css/react-datetime.css';
 import { formatDate } from '../utils/dateFormateur';
 
-function ChildComponent({ value, handleChange, Dates, nameInput }) {
+function ChildComponent({ value, setDate_end, Dates, nameInput }) {
 	let inputProps = {
 		placeholder: 'jj-mm-aaaa',
 		className:
-			' border border-gray-200  text-gray-800 focus:border-2 p-1 rounded-md focus:border-blue-500 focus:outline-none w-full',
-		// type: 'date',
+			' border border-gray-200  text-gray-800 focus:border-2 p-2 rounded-md focus:border-blue-500 focus:outline-none w-60 pl-3',
 		name: nameInput,
 	};
-	const DatesNooo = ['2023-05-23', '2023-05-24', '2023-05-25', '2023-05-26'];
+	
 	const disableCustomDt = (current) => {
-		return !DatesNooo.includes(current.format('YYYY-mm-aaaa'));
+		return !Dates.includes(current.format('YYYY-MM-DD'));
 	};
-	if (Dates) {
-		console.log(Dates);
-	}
 
+	function handleChange(e) {
+		setDate_end(e._d);
+	}
 	return (
 		<DatePicker
 			timeFormat={false}
@@ -26,17 +25,9 @@ function ChildComponent({ value, handleChange, Dates, nameInput }) {
 			inputProps={inputProps}
 			isValidDate={disableCustomDt}
 			input={true}
-			onChange={(e) => {
-				const newEvent = {
-					target: {
-						value: formatDate(e._d),
-						name: nameInput,
-					},
-				};
-				handleChange(newEvent);
-			}}
+			onChange={(e) => handleChange(e)}
 			value={value}
-		/>
+		/>  
 	);
 }
 export default ChildComponent;

@@ -25,7 +25,7 @@ export function HomePage() {
 		// 	<Navbar />
 		<>
 			<TopSection />
-			<Marginer direction="vertical" margin="2em" />
+			{/* <Marginer direction="vertical" margin="2em" /> */}
 			{/* <BookCard /> */}
 			
 			<Marginer direction="vertical" margin="2em" />

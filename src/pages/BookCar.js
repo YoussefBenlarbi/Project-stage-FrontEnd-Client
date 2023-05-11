@@ -5,12 +5,25 @@ import { useEffect, useState } from 'react';
 import { formatDate } from '../components/utils/dateFormateur';
 import AuthUser from '../PrivateRoute/AuthUser';
 import { toast } from 'react-toastify';
-import ChildComponent from '../components/DatePicker/date_start';
-import { Car } from '../components/car/CarForm';
-import CustomDatePicker from '../components/DatePicker/ReactDatePicker';
-
+import ChildComponent from '../components/DatePicker/DatePicker';
+import { Car } from '../components/car';
+const BookCarContainer = styled.div`
+	${tw`
+		w-full   bg-gray-100 flex  flex-col p-2 sm:justify-center sm:items-center 
+	`};
+`;
+const Title = styled.h1`
+	${tw`
+		text-xl text-center font-bold text-cyan-800
+	`};
+`;
+const FormContainer = styled.div`
+	${tw`
+		m-3  p-6 rounded-lg lg:w-[40%] sm:m-6 bg-white
+	`};
+`;
 const InputContainer = styled.div`
-	${tw` p-1 flex flex-col text-black
+	${tw` p-1 flex flex-col
 	`};
 `;
 const Label = styled.h2`
@@ -18,7 +31,16 @@ const Label = styled.h2`
 		font-semibold text-black mb-2
 	`};
 `;
-
+const Input = styled.input`
+	${tw`
+		border border-gray-200 focus:border-2 p-1 rounded-md  focus:border-blue-500 focus:outline-none
+	`};
+`;
+const Textarea = styled.textarea`
+	${tw`
+		border focus:border-2 border-gray-200 p-1 rounded-md  focus:border-blue-500 focus:outline-none
+	`};
+`;
 const ButtonContainer = styled.div`
 	${tw`
 		w-full p-1 flex whitespace-nowrap justify-start text-center 
@@ -29,14 +51,18 @@ const Button = styled.button`
 		p-2 bg-cyan-800 w-[40%]  mt-2 rounded-lg text-white border hover:bg-transparent hover:text-cyan-800 border-cyan-800
 	`};
 `;
-
+const Select = styled.select`
+	${tw`
+		p-1 focus:outline-none border focus:border-2 focus:border-blue-500 border-gray-200 rounded-lg
+	`};
+`;
 
 function BookCar() {
 	const { http, user } = AuthUser();
 	const navigate = useNavigate();
 	const location = useLocation();
 	const { id } = location.state || {};
-
+	const DatesNooo = ['2023-05-23', '2023-05-24', '2023-05-25', '2023-05-26'];
 	const [cars, setCars] = useState();
 
 	const [datesBooked, setDatesBooked] = useState([]);
@@ -64,7 +90,7 @@ function BookCar() {
 	const getDates = async (id) => {
 		const apiDates = await http.get(`/datesCar/${id}`);
 		setDatesBooked(apiDates.data.dates);
-		console.log(apiDates.data.dates);
+		// console.log(apiDates.data.dates);
 		// setState({...state,date_start:"",date_end:""});
 	};
 	useEffect(() => {
@@ -149,18 +175,27 @@ function BookCar() {
 
 				<InputContainer>
 					<Label>Date Start</Label>
-					<CustomDatePicker
+					{/* <CustomDatePicker
 						date_start={date_start}
 						handleChange={setDate_start}
 						DatesNooo={dispalyedCar ? datesBooked : []}
+					/> */}
+					<ChildComponent
+						value={date_start}
+						setDate_end={setDate_start}
+						Dates={datesBooked ? datesBooked : []}
+						// Dates={DatesNooo}
+						nameInput="date_end"
 					/>
 				</InputContainer>
 				<InputContainer>
 					<Label>Date Return</Label>
-					<CustomDatePicker
-						date_start={date_end}
-						handleChange={setDate_end}
-						DatesNooo={datesBooked ? datesBooked : []}
+					<ChildComponent
+						value={date_end}
+						setDate_end={setDate_end}
+						Dates={datesBooked ? datesBooked : []}
+						// Dates={DatesNooo}
+						nameInput="date_end"
 					/>
 				</InputContainer>
 				<textarea
@@ -179,6 +214,5 @@ function BookCar() {
 			</div>
 		</div>
 	);
-	// You can now use startDate and returnDate in your component
 }
 export default BookCar;

@@ -19,7 +19,7 @@ const TopSectionContainer = styled.div`
     pr-3
     lg:pl-12
     lg:pr-12
-  `};
+`};
 `;
 
 const LeftContainer = styled.div`
@@ -27,7 +27,7 @@ const LeftContainer = styled.div`
     w-1/2
     flex
     flex-col
-  `};
+`};
 `;
 
 const RightContainer = styled.div`
@@ -37,7 +37,7 @@ const RightContainer = styled.div`
     flex-col
     relative
     mt-20
-  `};
+`};
 `;
 
 const Slogan = styled.h1`
@@ -54,7 +54,7 @@ const Slogan = styled.h1`
     sm:leading-snug
     lg:leading-normal
     xl:leading-relaxed
-  `};
+`};
 `;
 
 const Description = styled.p`
@@ -66,7 +66,7 @@ const Description = styled.p`
     overflow-hidden
     max-h-12
     text-gray-800
-  `};
+`};
 `;
 
 const BlobContainer = styled.div`
