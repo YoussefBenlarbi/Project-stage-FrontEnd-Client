@@ -82,7 +82,7 @@ function ConatctUs() {
 				</p>
 				<InputField
 					type="text"
-					placeholder="Name..."
+					placeholder="Full Name..."
 					onChange={(e) => setName(e.target.value)}
 				/>
 				<InputField

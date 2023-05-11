@@ -6,7 +6,7 @@ import { formatDate } from '../components/utils/dateFormateur';
 import AuthUser from '../PrivateRoute/AuthUser';
 import { toast } from 'react-toastify';
 import ChildComponent from '../components/DatePicker/DatePicker';
-import { Car } from '../components/car';
+import { Car } from '../components/car/CarForm';
 const BookCarContainer = styled.div`
 	${tw`
 		w-full   bg-gray-100 flex  flex-col p-2 sm:justify-center sm:items-center 
