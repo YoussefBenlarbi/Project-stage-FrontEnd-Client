@@ -43,7 +43,7 @@ const Textarea = styled.textarea`
 `;
 const ButtonContainer = styled.div`
 	${tw`
-		w-full p-1 flex whitespace-nowrap justify-start text-center 
+		w-full p-1 ml-1 flex whitespace-nowrap justify-start text-center 
 	`};
 `;
 const Button = styled.button`
@@ -152,8 +152,8 @@ function BookCar() {
 				/>
 			</div>
 			<div className="p-6 flex-1 flex flex-col justify-between">
-				<h2 className="text-xl font-semibold mb-4 ml-10">
-					Choose your dates 3
+				<h2 className="text-xl font-semibold mb-4 ml-6">
+					Choose your dates :
 				</h2>
 				<select
 					name="car_id"
@@ -163,7 +163,7 @@ function BookCar() {
 					className="p-2 border shadow outline-none focus:border-blue-500 rounded  w-60 mb-6 "
 				>
 					<option value="rien" disabled={true}>
-						Choisir la voiture
+						Choose a Car 
 					</option>
 					{cars &&
 						cars.map((car) => (

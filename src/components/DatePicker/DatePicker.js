@@ -5,9 +5,9 @@ import { formatDate } from '../utils/dateFormateur';
 
 function ChildComponent({ value, setDate_end, Dates, nameInput }) {
 	let inputProps = {
-		placeholder: 'jj-mm-aaaa',
+		placeholder: 'YYYY-MM-DD',
 		className:
-			' border border-gray-200  text-gray-800 focus:border-2 p-2 rounded-md focus:border-blue-500 focus:outline-none w-60 pl-3',
+			' border border-gray-200 shadow text-gray-800 focus:border-2 p-2 rounded-md focus:border-blue-500 focus:outline-none w-60 pl-3',
 		name: nameInput,
 	};
 	
