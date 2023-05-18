@@ -3,10 +3,11 @@ import { Link, useLocation } from 'react-router-dom';
 import AuthUser from '../PrivateRoute/AuthUser';
 import { AlertError } from '../components/AlertError';
 import McLaren from '../assets/images/mclaren-orange-big.png';
-
+import { ToastConfig } from '../components/toastConfig/success';
 import { SCREENS } from '../components/responsive';
 import styled from 'styled-components';
 import tw from 'twin.macro';
+import { toast } from 'react-toastify';
 // import styled from 'styled-components';
 
 const Input = styled.input`
@@ -66,29 +67,41 @@ function Login() {
 	const { http, setToken } = AuthUser();
 	const [email, setEmail] = useState('');
 	const [password, setPassword] = useState('');
-	const [message, setMessage] = useState('');
 	const [user, setUser] = useState();
-	const [error, setError] = useState();
 	const location = useLocation();
 	const { feedback } = location.state || {};
 	// console.log(feedback);
 	const handleLogin = async (e) => {
 		e.preventDefault();
-		setLoading(true);
-		setError(null);
-		try {
-			const response = await http.post('/login', { email, password });
-			// do something with response data
-			setToken(response.data.user, response.data.authorization.token);
-			console.log(response.data);
-			setLoading(false);
-			setUser(response.data.user);
-			setMessage('succes');
-		} catch (err) {
-			// handle error
-			setError(err.message || 'Something went wrong');
-			setLoading(false);
+		if (!email.trim('') || !password.trim('')) {
+			toast.error('Tous les champs sont oblipgatoires!', ToastConfig);
+		} else {
+			setLoading(true);
+			try {
+				const response = await http.post('/login', { email, password });
+				// do something with response data
+				setToken(response.data.user, response.data.authorization.token);
+				setLoading(false);
+				setUser(response.data.user);
+			} catch (err) {
+				// handle error
+				setLoading(false);
+			}
 		}
+		// setError(null);
+		// try {
+		// 	const response = await http.post('/login', { email, password });
+		// 	// do something with response data
+		// 	setToken(response.data.user, response.data.authorization.token);
+		// 	console.log(response.data);
+		// 	setLoading(false);
+		// 	setUser(response.data.user);
+		// 	setMessage('succes');
+		// } catch (err) {
+		// 	// handle error
+		// 	setError(err.message || 'Something went wrong');
+		// 	setLoading(false);
+		// }
 	};
 
 	return (
@@ -107,7 +120,8 @@ function Login() {
 					<Input
 						placeholder="Email"
 						id="email"
-						type="text"
+						type="email"
+						required
 						onChange={(e) => setEmail(e.target.value)}
 					/>{' '}
 				</div>
@@ -119,7 +133,7 @@ function Login() {
 						onChange={(e) => setPassword(e.target.value)}
 					/>
 				</div>
-				<Button type="submit"  disabled={loading}>
+				<Button type="submit" disabled={loading}>
 					{loading ? 'Loading...' : 'Connexion'}
 				</Button>
 				<div className="flex items-center justify-between w-[50%]">
@@ -139,13 +153,6 @@ function Login() {
 					</div>
 				</div>
 				<span className='w-[60%]'>
-					{/* {message && <p className="text-red-600">{message}</p>}
-					{user && (
-						<p className="font-mono">
-							Hello Mr <span className="font-bold">{user.name}</span>
-						</p>
-					)} */}
-					{error && <p className="error">{error}</p>}
 					{feedback && <AlertError feedback={feedback} />}
 				</span>
 			</Section2>

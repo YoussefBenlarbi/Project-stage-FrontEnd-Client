@@ -1,11 +1,12 @@
 import React, { useState } from 'react';
-import { useNavigate, Link } from 'react-router-dom';
-import AuthUser from '../PrivateRoute/AuthUser';
+import { Link, useNavigate } from 'react-router-dom';
 import { toast } from 'react-toastify';
-import { SCREENS } from '../components/responsive';
 import styled from 'styled-components';
 import tw from 'twin.macro';
+import AuthUser from '../PrivateRoute/AuthUser';
 import McLaren from '../assets/images/mclaren-orange-big.png';
+import { SCREENS } from '../components/responsive';
+import { ToastConfig } from '../components/toastConfig/success';
 
 const Section1 = styled.div`
 	${tw`
@@ -54,24 +55,10 @@ const StandaloneCar = styled.div`
 		top: 8em;
 	}
 `;
-const configToast = {
-	position: 'top-center',
-	autoClose: 1000,
-	hideProgressBar: false,
-	closeOnClick: true,
-	pauseOnHover: false,
-	draggable: true,
-	progress: undefined,
-	theme: 'light',
-};
+
 function Register() {
 	const { http, setToken } = AuthUser();
 	const navigate = useNavigate();
-	// const [name, setName] = useState();
-	// const [email, setEmail] = useState();
-	// const [password, setPassword] = useState();
-	// const [confirmPassword, setConfirmPassword] = useState();
-	// const [data, setData] = useState();
 	const [state, setState] = useState({
 		name: '',
 		email: '',
@@ -91,17 +78,22 @@ function Register() {
 	}
 	const submitForm = (e) => {
 		e.preventDefault();
-		//  api call
-		if (password != confirmPassword) {
-			toast.error('passwords are not identical', configToast);
+		if (!name.trim('') || !email.trim('') || !cin.trim('') || !password.trim('') || !confirmPassword.trim('') || !address.trim('') || sexe.trim('') === "rien") {
+			toast.error('Tous les champs sont obligatoires!');
 		} else {
-			console.log(state);
-			http.post('/register', state).then((res) => {
-				console.log(res);
-				navigate(`/login`);
-			});
-			// alert('pressed');
+			//  api call
+			if (password != confirmPassword) {
+				toast.error('passwords are not identical', ToastConfig);
+			} else {
+				console.log(state);
+				http.post('/register', state).then((res) => {
+					console.log(res);
+					toast.success('Your account is created succesfully ', ToastConfig);
+					navigate(`/login`);
+				});
+			}
 		}
+
 	};
 	return (
 		<div className="w-full h-screen flex ">
@@ -117,6 +109,7 @@ function Register() {
 						placeholder="Name"
 						id="Name"
 						name="name"
+						required
 						type="text"
 						value={name}
 						onChange={(e) => handleChange(e)}
@@ -127,7 +120,8 @@ function Register() {
 						placeholder="Email"
 						id="email"
 						name="email"
-						type="text"
+						type="email"
+						required
 						value={email}
 						onChange={(e) => handleChange(e)}
 					/>
@@ -137,6 +131,7 @@ function Register() {
 						placeholder="Password"
 						id="password"
 						name="password"
+						required
 						type="password"
 						value={password}
 						onChange={(e) => handleChange(e)}
@@ -146,6 +141,7 @@ function Register() {
 					<Input
 						type="password"
 						name="confirmPassword"
+						required
 						value={confirmPassword}
 						onChange={(e) => handleChange(e)}
 						placeholder="*********************"
@@ -157,6 +153,7 @@ function Register() {
 						id="cin"
 						name="cin"
 						type="text"
+						required
 						value={cin}
 						onChange={(e) => handleChange(e)}
 					/>
@@ -166,6 +163,7 @@ function Register() {
 						placeholder="address"
 						id="address"
 						name="address"
+						required
 						type="text"
 						value={address}
 						onChange={(e) => handleChange(e)}
