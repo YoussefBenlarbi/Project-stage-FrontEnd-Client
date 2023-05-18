@@ -3,6 +3,7 @@ import styled from 'styled-components';
 import tw from 'twin.macro';
 import AuthUser from '../PrivateRoute/AuthUser';
 import { Car } from '../components/car';
+import BeatLoaderSpinner from '../components/ReactLoader/BeatLoader';
 const BodyContainer = styled.div`
 	${tw`
 		w-full bg-gray-100 
@@ -59,6 +60,7 @@ function Cars() {
 	// console.log(cars);
 	return (
 		<BodyContainer>
+
 			<FilterConatiner>
 				<Span>Search </Span>
 				<Input
@@ -66,6 +68,9 @@ function Cars() {
 					onChange={(e) => setSearchTerm(e.target.value)}
 				/>
 			</FilterConatiner>
+			{!cars ? (
+				<BeatLoaderSpinner height="100%" />
+			) : (
 			<CarsContainer>
 				<Title>Listes des Voitures :</Title>
 				<CardContainer>
@@ -84,7 +89,8 @@ function Cars() {
 							/>
 						))}
 				</CardContainer>
-			</CarsContainer>
+			</CarsContainer>)}
+
 		</BodyContainer>
 	);
 }
