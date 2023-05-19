@@ -56,7 +56,7 @@ export function ProfilIcon() {
 				leaveTo="transform opacity-0 scale-95"
 			>
 				<Menu.Items className="origin-top-right z-10 absolute right-0 mt-2 w-48 rounded-sm shadow-md p-1 bg-white ring-1 ring-black ring-opacity-5 focus:outline-none">
-					<Menu.Item>
+					{/* <Menu.Item>
 						{({ active }) => (
 							<div
 								className={classNames(
@@ -68,7 +68,7 @@ export function ProfilIcon() {
 								Your profile
 							</div>
 						)}
-					</Menu.Item>
+					</Menu.Item> */}
 					{/* <Menu.Item>
 						{({ active }) => (
 							<div

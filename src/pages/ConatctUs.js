@@ -54,19 +54,24 @@ function ConatctUs() {
 	const [message, setMessage] = useState('');
 	const handleRequest = async (e) => {
 		e.preventDefault();
+		if (!name.trim('') || !email.trim('') || !message.trim('')) {
+			toast.error('Tous les champs sont obligatoires ', configToast);
 
-		try {
-			const response = await http.post('/messages', {
-				name: name,
-				email: email,
-				message: message,
-			});
-			// do something with response data
-			toast.success('your message is sent succesfylly ', configToast);
-			navigate('/');
-		} catch (err) {
-			// handle error
-			console.error(err);
+		} else {
+			try {
+				const response = await http.post('/messages', {
+					name: name,
+					email: email,
+					message: message,
+				});
+				// do something with response data
+				toast.success('your message is sent succesfylly ', configToast);
+				navigate('/');
+				console.log(response)
+			} catch (err) {
+				// handle error
+				console.error(err);
+			}
 		}
 	};
 	return (
@@ -82,11 +87,13 @@ function ConatctUs() {
 				</p>
 				<InputField
 					type="text"
+					required
 					placeholder="Full Name..."
 					onChange={(e) => setName(e.target.value)}
 				/>
 				<InputField
-					type="text"
+					type="email"
+					required
 					placeholder="Email..."
 					onChange={(e) => setEmail(e.target.value)}
 				/>
@@ -95,6 +102,7 @@ function ConatctUs() {
 					id=""
 					cols="30"
 					rows="10"
+					required
 					placeholder="Message..."
 					onChange={(e) => setMessage(e.target.value)}
 				></TextAreaField>

@@ -7,6 +7,7 @@ import AuthUser from '../PrivateRoute/AuthUser';
 import { toast } from 'react-toastify';
 import ChildComponent from '../components/DatePicker/DatePicker';
 import { Car } from '../components/car/CarForm';
+import { ToastConfig } from '../components/toastConfig/success';
 const BookCarContainer = styled.div`
 	${tw`
 		w-full   bg-gray-100 flex  flex-col p-2 sm:justify-center sm:items-center 
@@ -62,7 +63,7 @@ function BookCar() {
 	const navigate = useNavigate();
 	const location = useLocation();
 	const { id } = location.state || {};
-	const DatesNooo = ['2023-05-23', '2023-05-24', '2023-05-25', '2023-05-26'];
+	// const DatesNooo = ['2023-05-23', '2023-05-24', '2023-05-25', '2023-05-26'];
 	const [cars, setCars] = useState();
 
 	const [datesBooked, setDatesBooked] = useState([]);
@@ -70,7 +71,14 @@ function BookCar() {
 	const [date_end, setDate_end] = useState();
 	const [note, setNote] = useState('');
 	const [car_id, setCar_id] = useState(id || 'rien');
-
+	const CheckDate = (current) => {
+		for (let i = 0; i < datesBooked.length; i++) {
+			if (datesBooked[i] === current) {
+				return true;
+			}
+		}
+		return false;
+	};
 	const [dispalyedCar, setDispalyedCar] = useState({
 		id: '1',
 		name: 'Clio 4',
@@ -108,33 +116,33 @@ function BookCar() {
 	}
 	async function handleSubmit() {
 		if (!date_start || !date_end || !note || car_id === 'rien') {
-			alert('Tous les champs obligatoires ');
+
+			toast.error('Tous les champ sont obligatoires!', ToastConfig);
 			// console.log(state);
 			return;
-		}
-		let todayDate = new Date();
-		const reservation = {
-			date_start: formatDate(date_start),
-			note: note,
-			date_end: formatDate(date_end),
-			car_id: car_id,
-			user_id: user.id,
-			date_reservation: formatDate(todayDate),
-		};
-		console.log(reservation);
+		} else {
+			if (CheckDate(formatDate(date_start)) || CheckDate(formatDate(date_end))) {
+				toast.error('Choisie une date valid !', ToastConfig);
+			} else {
+				let todayDate = new Date();
+				const reservation = {
+					date_start: formatDate(date_start),
+					note: note,
+					date_end: formatDate(date_end),
+					car_id: car_id,
+					user_id: user.id,
+					date_reservation: formatDate(todayDate),
+				};
 
-		await http.post('/reservations', reservation);
-		toast.success('Reservation bien enregistrer', {
-			position: 'top-center',
-			autoClose: 500,
-			hideProgressBar: false,
-			closeOnClick: true,
-			pauseOnHover: false,
-			draggable: true,
-			progress: undefined,
-			theme: 'light',
-		});
-		navigate('/');
+				console.log(reservation);
+
+				await http.post('/reservations', reservation);
+				// console.log(reservation);
+				toast.success('Reservation bien enregistrer', ToastConfig);
+				navigate('/');
+			}
+		}
+
 	}
 	return (
 		<div className="w-full h-screen flex bg-neutral-100">
@@ -163,7 +171,7 @@ function BookCar() {
 					className="p-2 border shadow outline-none focus:border-blue-500 rounded  w-60 mb-6 "
 				>
 					<option value="rien" disabled={true}>
-						Choose a Car 
+						Choose a Car
 					</option>
 					{cars &&
 						cars.map((car) => (
