@@ -79,7 +79,7 @@ function Register() {
 	const submitForm = (e) => {
 		e.preventDefault();
 		if (!name.trim('') || !email.trim('') || !cin.trim('') || !password.trim('') || !confirmPassword.trim('') || !address.trim('') || sexe.trim('') === "rien") {
-			toast.error('Tous les champs sont obligatoires!');
+			toast.error('all fields are required!');
 		} else {
 			//  api call
 			if (password != confirmPassword) {

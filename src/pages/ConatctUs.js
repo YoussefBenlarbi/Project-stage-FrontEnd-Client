@@ -55,7 +55,7 @@ function ConatctUs() {
 	const handleRequest = async (e) => {
 		e.preventDefault();
 		if (!name.trim('') || !email.trim('') || !message.trim('')) {
-			toast.error('Tous les champs sont obligatoires ', configToast);
+			toast.error('all fields are required ', configToast);
 
 		} else {
 			try {
@@ -65,7 +65,7 @@ function ConatctUs() {
 					message: message,
 				});
 				// do something with response data
-				toast.success('your message is sent succesfylly ', configToast);
+				toast.success('your message is sent succesfully ', configToast);
 				navigate('/');
 				console.log(response)
 			} catch (err) {

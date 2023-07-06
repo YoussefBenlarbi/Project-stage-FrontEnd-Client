@@ -74,7 +74,7 @@ function Login() {
 	const handleLogin = async (e) => {
 		e.preventDefault();
 		if (!email.trim('') || !password.trim('')) {
-			toast.error('Tous les champs sont oblipgatoires!', ToastConfig);
+			toast.error('all fields are required !', ToastConfig);
 		} else {
 			setLoading(true);
 			try {
@@ -86,7 +86,7 @@ function Login() {
 			} catch (err) {
 				// handle error
 				setLoading(false);
-				toast.error('Veuiller saisir email et password correct', ToastConfig);
+				toast.error('Please enter the correct email and password', ToastConfig);
 			}
 		}
 		// setError(null);

@@ -95,12 +95,12 @@ function BookCar() {
 		setCars(apiCars.data);
 	};
 	// retrieve all the dates what will be passed to the datePicker
-	const getDates = async (id) => {
-		const apiDates = await http.get(`/datesCar/${id}`);
-		setDatesBooked(apiDates.data.dates);
-		// console.log(apiDates.data.dates);
-		// setState({...state,date_start:"",date_end:""});
-	};
+		const getDates = async (id) => {
+			const apiDates = await http.get(`/datesCar/${id}`);
+			setDatesBooked(apiDates.data.dates);
+			// console.log(apiDates.data.dates);
+			// setState({...state,date_start:"",date_end:""});
+		};
 	useEffect(() => {
 		getCars();
 		if (id) {
@@ -117,12 +117,12 @@ function BookCar() {
 	async function handleSubmit() {
 		if (!date_start || !date_end || !note || car_id === 'rien') {
 
-			toast.error('Tous les champ sont obligatoires!', ToastConfig);
+			toast.error('all fields are required!', ToastConfig);
 			// console.log(state);
 			return;
 		} else {
 			if (CheckDate(formatDate(date_start)) || CheckDate(formatDate(date_end))) {
-				toast.error('Choisie une date valid !', ToastConfig);
+				toast.error('chose a valid date !', ToastConfig);
 			} else {
 				let todayDate = new Date();
 				const reservation = {
@@ -138,7 +138,7 @@ function BookCar() {
 
 				await http.post('/reservations', reservation);
 				// console.log(reservation);
-				toast.success('Reservation bien enregistrer', ToastConfig);
+				toast.success('Reservation successfully registered', ToastConfig);
 				navigate('/');
 			}
 		}

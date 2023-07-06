@@ -84,7 +84,7 @@ export function NavItems() {
 						<Link to="cars">Cars</Link>
 					</NavItem>
 					<NavItem menu>
-						<Link to="contacts">Contact-us</Link>
+						<Link to="contacts">Contact us</Link>
 					</NavItem>
 					<NavItem menu>
 						<Link to="register">Sign Up</Link>
@@ -102,7 +102,7 @@ export function NavItems() {
 				<Link to="cars">Cars</Link>
 			</NavItem>
 			<NavItem className="nav">
-				<Link to="contacts">Contact-us</Link>
+				<Link to="contacts">Contact us</Link>
 			</NavItem>
 			<NavItem className="nav">
 				<Link to="register">Sign Up</Link>

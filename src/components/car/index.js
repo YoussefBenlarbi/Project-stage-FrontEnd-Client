@@ -106,7 +106,7 @@ const CarDetailsContainer = styled.div`
     flex
     w-full
     justify-between
-  `};
+`};
 `;
 
 const CarDetail = styled.span`

@@ -30,21 +30,16 @@ export default function App() {
 			<ToastContainer />
 			<Router>
 				<Routes>
-					{/* <Route path="/" element={<HomePage />}>
-					</Route> */}
 					<Route path="/" element={<Layout />}>
 						<Route index element={<HomePage />} />
 						<Route path="cars" element={<Cars />}></Route>
 						<Route path="contacts" element={<ConatctUs />}></Route>
 						<Route element={<PrivateRoute />}>
-							{/* <Route path="book-car" element={<BookCar />}></Route> */}
-							{/* <Route path="book-car2" element={<BookCar2 />}></Route> */}
 							<Route path="book-car" element={<BookCar />}></Route>
 						</Route>
 					</Route>
 					<Route>
 						<Route path="login" element={<Login />}></Route>
-						{/* <Route path="register" element={<Register />}></Route> */}
 						<Route path="register" element={<Register />}></Route>
 						<Route path="saisieInfos/:id" element={<SaisieInfos />}></Route>
 					</Route>
