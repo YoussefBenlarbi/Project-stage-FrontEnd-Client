@@ -49,7 +49,7 @@ const ButtonContainer = styled.div`
 `;
 const Button = styled.button`
 	${tw`
-		p-2 bg-cyan-800 w-[40%]  mt-2 rounded-lg text-white border hover:bg-transparent hover:text-cyan-800 border-cyan-800
+		p-2 bg-cyan-800 w-[60%] md:w-[40%]  mt-2 rounded-lg text-white border hover:bg-transparent hover:text-cyan-800 border-cyan-800
 	`};
 `;
 const Select = styled.select`
@@ -81,7 +81,7 @@ function BookCar() {
 	};
 	const [dispalyedCar, setDispalyedCar] = useState({
 		id: '1',
-		name: 'Clio 4',
+		name: 'Clio 444444',
 		mileage: 120000,
 		thumbnailUrl: 'images/image-1682365366943.jpg',
 		dailyPrice: 300,
@@ -146,7 +146,7 @@ function BookCar() {
 	}
 	return (
 		<div className="w-full h-screen flex bg-neutral-100">
-			<div className="p-6 flex justify-end items-center w-[50%]">
+			<div className="p-6  hidden  md:flex justify-end items-center w-[50%]">
 				<Car
 					key={dispalyedCar.id}
 					id={dispalyedCar.id}
