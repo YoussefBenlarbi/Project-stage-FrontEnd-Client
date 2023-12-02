@@ -75,22 +75,22 @@ export function NavItems() {
 	const { token, http } = AuthUser();
 	if (isMobile) {
 		return (
-				<Menu right styles={menuStyle}>
-					<ListContainer>
-						<NavItem menu>
-							<Link to="/">Home</Link>
-						</NavItem>
-						<NavItem menu>
-							<Link to="cars">Cars</Link>
-						</NavItem>
-						<NavItem menu>
-							<Link to="contacts">Contact us</Link>
-						</NavItem>
-						<NavItem menu>
-							<Link to="register">Sign Up</Link>
-						</NavItem>
-					</ListContainer>
-				</Menu>
+			<Menu right styles={menuStyle}>
+				<ListContainer>
+					<NavItem menu>
+						<Link to="/">Home</Link>
+					</NavItem>
+					<NavItem menu>
+						<Link to="cars">Cars</Link>
+					</NavItem>
+					<NavItem menu>
+						<Link to="contacts">Contact us</Link>
+					</NavItem>
+					<NavItem menu>
+						<Link to="register">Sign Up</Link>
+					</NavItem>
+				</ListContainer>
+			</Menu>
 		);
 	}
 	return (

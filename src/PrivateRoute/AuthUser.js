@@ -30,7 +30,7 @@ export default function AuthUser() {
 		
 	};
 	const http = axios.create({
-		baseURL: 'youssefbenlarbi.tech/api',
+		baseURL: 'http://localhost:8000/api',
 		headers: {
 			'Content-Type': 'application/json',
 			'Authorization': `Bearer ${token}`,
