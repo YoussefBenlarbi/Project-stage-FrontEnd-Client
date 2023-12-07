@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import AuthUser from '../../PrivateRoute/AuthUser';
-import axios from 'axios';
+// import axios from 'axios';
 import styled from 'styled-components';
 import tw from 'twin.macro';
 import { Car } from '../../components/car';
@@ -8,8 +8,8 @@ import 'react-responsive-carousel/lib/styles/carousel.min.css'; // requires a lo
 import { Carousel } from 'react-responsive-carousel';
 // import { Carousel } from 'react-responsive-carousel';
 // import 'react-responsive-carousel/lib/styles/carousel.min.css'; // requires a loader
-import { useMediaQuery } from 'react-responsive';
-import { SCREENS } from '../../components/responsive';
+// import { useMediaQuery } from 'react-responsive';
+// import { SCREENS } from '../../components/responsive';
 const TopCarsContainer = styled.div`
 	${tw`
         max-w-screen-lg
@@ -50,45 +50,46 @@ export function TopCars() {
 	const [cars, setCars] = useState([]);
 	const { http } = AuthUser();
 	const getCars = async () => {
-		const apiCars = await http.get('/carsInfo');
-		setCars(apiCars.data);
+		try {
+			const apiCars = await http.get('/carsInfo');
+			setCars(apiCars.data);
+		} catch (error) {
+			console.error('Error fetching cars:', error);
+		}
 	};
 	useEffect(() => {
 		getCars();
 	}, []);
-	console.log(cars);
 	return (
 		<TopCarsContainer>
 			<Title>Explore our Top Deals</Title>
 			<CarsContainer>
-				<Carousel
-					width={990}
-					centerMode
-					centerSlidePercentage={35}
-					useKeyboardArrows={true}
-					showArrows={false}
-					showThumbs={false}
-				>
-					{cars.slice(0, 4).map((car) => (
-						<Car
-							key={car.id}
-							id={car.id}
-							name={car.name}
-							mileage={car.mileage}
-							thumbnailUrl={car.thumbnailUrl}
-							dailyPrice={car.dailyPrice}
-							monthlyPrice={car.monthlyPrice}
-							gearType={car.gearType}
-							gasType={car.gasType}
-						/>
-					))}
-					{/* <Car {...testCar} />
-					<Car {...testCar2} />
-					<Car {...testCar} />
-					<Car {...testCar2} />
-					<Car {...testCar} />
-					<Car {...testCar} /> */}
-				</Carousel>
+				{cars && cars.length > 0 ? (
+					<Carousel
+						width={990}
+						centerMode
+						centerSlidePercentage={35}
+						useKeyboardArrows={true}
+						showArrows={false}
+						showThumbs={false}
+					>
+						{cars.slice(0, 4).map((car) => (
+							<Car
+								key={car.id}
+								id={car.id}
+								name={car.name}
+								mileage={car.mileage}
+								thumbnailUrl={car.thumbnailUrl}
+								dailyPrice={car.dailyPrice}
+								monthlyPrice={car.monthlyPrice}
+								gearType={car.gearType}
+								gasType={car.gasType}
+							/>
+						))}
+					</Carousel>
+				) : (
+					<p>No cars available</p>
+				)}
 			</CarsContainer>
 		</TopCarsContainer>
 	);
