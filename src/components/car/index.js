@@ -176,7 +176,7 @@ export function Car(props) {
 	return (
 		<CarContainer>
 			<CarThumbnail>
-				<img src={`http://127.0.0.1:8000/api/${thumbnailUrl}`} alt="" />
+				<img src={`https://youssefbenlarbi.tech/api/${thumbnailUrl}`} alt="" />
 			</CarThumbnail>
 			<CarName>{name}</CarName>
 			<PricesContainer>
