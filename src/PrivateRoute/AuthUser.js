@@ -30,7 +30,7 @@ export default function AuthUser() {
 		
 	};
 	const http = axios.create({
-		baseURL: 'http://localhost:8000/api',
+		baseURL: 'https://project-stage-front-end-client.vercel.app/api',
 		headers: {
 			'Content-Type': 'application/json',
 			'Authorization': `Bearer ${token}`,
